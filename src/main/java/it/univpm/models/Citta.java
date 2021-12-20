@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Vector;
 
 /**
- * <b>Classe</b> che contiene i parametri che caratterizzano una <i>città</i>.
+ * <b>Classe</b> che contiene i parametri che caratterizzano una <i>citta'</i>.
  *
  * @author riccardopostacchini
  * @author nicolobartolini
@@ -21,10 +21,10 @@ public class Citta {
     /**
      * <b>Costruttore</b> della classe <code>Citta</code>.
      *
-     * @param id Codice identificativo della città.
-     * @param nome Nome della città.
-     * @param nazione Nazione in cui la città si trova.
-     * @param coord Coordinate della città date da longitudine e latitudine.
+     * @param id Codice identificativo della citta'.
+     * @param nome Nome della citta'.
+     * @param nazione Nazione in cui la citta' si trova.
+     * @param coord Coordinate della citta' date da longitudine e latitudine.
      *
      */
     public Citta(long id, String nome, String nazione, Coordinate coord){
@@ -45,7 +45,7 @@ public class Citta {
     }
     /**
      * <b>Setter</b> dell'attributo <code>id</code>
-     * @param id Codice identificativo della città.
+     * @param id Codice identificativo della citta'.
      */
     public void setId(long id) {
         this.id = id;
@@ -60,7 +60,7 @@ public class Citta {
     }
     /**
      * <b>Setter</b> dell'attributo <code>nome</code>
-     * @param nome Nome della città.
+     * @param nome Nome della citta'.
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -75,7 +75,7 @@ public class Citta {
     }
     /**
      * <b>Setter</b> dell'attributo <code>nazione</code>
-     * @param nazione Nazione in cui la città si trova.
+     * @param nazione Nazione in cui la citta' si trova.
      */
     public void setNazione(String nazione) {
         this.nazione = nazione;
@@ -90,7 +90,7 @@ public class Citta {
     }
     /**
      * <b>Setter</b> dell'attributo <code>coord</code>
-     * @param coord Coordinate della città date da longitudine e latitudine.
+     * @param coord Coordinate della citta' date da longitudine e latitudine.
      */
     public void setCoord(Coordinate coord) {
         this.coord = coord;
@@ -128,7 +128,7 @@ public class Citta {
 
     /**
      * Override del metodo toString.
-     * @return String rappresentante i dati della città.
+     * @return String rappresentante i dati della citta'.
      */
     @Override
     public String toString() {
