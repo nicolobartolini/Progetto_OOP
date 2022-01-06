@@ -1,5 +1,8 @@
 package it.univpm.services;
 
+import java.net.URL;
+import java.net.URLConnection;
+
 public class ChiamataAPI {
     private final String chiaveAPI = "30c83cda5c0f4144140a7be526862c1f";
     private String nomeCitta;
@@ -32,5 +35,9 @@ public class ChiamataAPI {
 
     public String generatoreURL(){
         return "api.openweathermap.org/data/2.5/forecast?appid=" + this.chiaveAPI + "&q=" + this.nomeCitta + "&country=" + this.nazione;
+    }
+
+    public URLConnection chiamaAPI() throws java.io.IOException {
+        return new URL(this.generatoreURL()).openConnection();
     }
 }
