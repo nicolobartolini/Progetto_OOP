@@ -8,8 +8,15 @@ import java.util.Vector;
 
 public class ParserPressione implements Parser{
 
+    private String nomeCitta;
+    private String nazione;
+
+    public ParserPressione(String nomeCitta, String nazione) {
+        this.nomeCitta = nomeCitta;
+        this.nazione = nazione;
+    }
     @Override
-    public Vector<Pressione> leggiDati(String nomeCitta, String nazione) throws IOException, ParseException {
+    public Vector<Pressione> leggiDati() throws IOException, ParseException {
         return null;
     }
 }
