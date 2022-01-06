@@ -27,13 +27,13 @@ public class Citta {
      * @param coord Coordinate della citta' date da longitudine e latitudine.
      *
      */
-    public Citta(long id, String nome, String nazione, Coordinate coord){
+    public Citta(long id, String nome, String nazione, Coordinate coord, Vector<Pressione> pressioni, Vector<Temperatura> temperature){
         this.id = id;
         this.nome = nome;
         this.nazione = nazione;
         this.coord = coord;
-        this.pressioni = new Vector<Pressione>();
-        this.temperature = new Vector<Temperatura>();
+        this.pressioni = pressioni;
+        this.temperature = temperature;
     }
 
     /**
