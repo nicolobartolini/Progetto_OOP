@@ -12,6 +12,8 @@ public class Temperatura {
      * <b>Costruttore</b> della classe <code>Temperatura</code>.
      * @param valoreReale Temperatura reale.
      * @param valorePercepito Temperatura percepita.
+     * @param valoreMinimo Temperatura minima.
+     * @param valoreMassimo Temperatura massima.
      * @param dataEpoch Data nel formato "Epoch".
      */
     public Temperatura(double valoreReale, double valorePercepito, double valoreMinimo, double valoreMassimo, long dataEpoch) {
