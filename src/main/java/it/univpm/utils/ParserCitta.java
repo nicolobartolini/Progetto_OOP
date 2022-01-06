@@ -2,6 +2,7 @@ package it.univpm.utils;
 
 import it.univpm.models.Citta;
 import it.univpm.models.Coordinate;
+import it.univpm.models.Pressione;
 import it.univpm.models.Temperatura;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -27,7 +28,11 @@ public class ParserCitta extends Parser{
         Coordinate coord = new Coordinate(lat, lon);
         ParserTemperatura parseTemp = new ParserTemperatura(getNomeCitta(), getNazione());
         Vector<Temperatura> temperature = parseTemp.leggiDati();
+        ParserPressione parsePress = new ParserPressione(getNomeCitta(), getNazione());
+        Vector<Pressione> pressioni = parsePress.leggiDati();
 
-        return null;
+        Citta citta = new Citta(id, nome, nazione, coord, pressioni, temperature);
+        return citta;
+
     }
 }
