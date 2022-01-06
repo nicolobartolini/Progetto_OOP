@@ -91,9 +91,10 @@ public class Temperatura {
         return "Temperatura{" +
                 "valoreReale=" + valoreReale +
                 ", valorePercepito=" + valorePercepito +
+                ", valoreMinimo=" + valoreMinimo +
+                ", valoreMassimo=" + valoreMassimo +
                 ", data=" + data +
                 '}';
     }
-
     //TODO equals
 }
