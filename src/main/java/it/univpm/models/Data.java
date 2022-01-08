@@ -41,7 +41,11 @@ public class Data {
     public void setDataEpoch(long dataEpoch) {
         this.dataEpoch = dataEpoch;
     }
-
+    /**
+     * <b>Getter</b> dell'attributo <code>dataFormattata</code>.
+     * @return String dataFormattata.
+     */
+    public String getDataFormattata() { return dataFormattata; }
     /**
      * Override del metodo <code>toString</code>.
      * @return String contenente la data nel suo formato "Epoch" e la data nel suo formato "leggibile".
