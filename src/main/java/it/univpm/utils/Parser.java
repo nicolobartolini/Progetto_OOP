@@ -39,13 +39,11 @@ public abstract class Parser {
 
     protected JSONObject getRispostaAPI() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
-        ChiamataAPI api = new ChiamataAPI(this.nomeCitta, this.nazione);
-        BufferedReader input = new BufferedReader(new InputStreamReader(api.chiamaAPI().getInputStream()));
+        BufferedReader input = new BufferedReader(new InputStreamReader(ChiamataAPI.chiamaAPI(this.nomeCitta, this.nazione).getInputStream()));
         String in = input.readLine();
 
         // TODO inserisci exception personalizzate e non per i codici di errore di openWeather
 
-        JSONObject rispostaAPI = (JSONObject) parser.parse(in);
-        return rispostaAPI;
+        return (JSONObject) parser.parse(in);
     }
 }

@@ -4,40 +4,20 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class ChiamataAPI {
-    private final String chiaveAPI = "30c83cda5c0f4144140a7be526862c1f";
-    private String nomeCitta;
-    private String nazione;
+    private final static String CHIAVE_API = "30c83cda5c0f4144140a7be526862c1f";
 
-    public ChiamataAPI(String nomeCitta, String nazione) {
-        this.nomeCitta = nomeCitta;
-        this.nazione = nazione;
+    public ChiamataAPI() {
     }
 
     public String getChiaveAPI() {
-        return chiaveAPI;
+        return CHIAVE_API;
     }
 
-    public String getNomeCitta() {
-        return nomeCitta;
+    public static String generatoreURL(String nomeCitta, String nazione){
+        return "api.openweathermap.org/data/2.5/forecast?appid=" + CHIAVE_API + "&q=" + nomeCitta + "&country=" + nazione;
     }
 
-    public void setNomeCitta(String nomeCitta) {
-        this.nomeCitta = nomeCitta;
-    }
-
-    public String getNazione() {
-        return nazione;
-    }
-
-    public void setNazione(String nazione) {
-        this.nazione = nazione;
-    }
-
-    public String generatoreURL(){
-        return "api.openweathermap.org/data/2.5/forecast?appid=" + this.chiaveAPI + "&q=" + this.nomeCitta + "&country=" + this.nazione;
-    }
-
-    public URLConnection chiamaAPI() throws java.io.IOException {
-        return new URL(this.generatoreURL()).openConnection();
+    public static URLConnection chiamaAPI(String nomeCitta, String nazione) throws java.io.IOException {
+        return new URL(generatoreURL(nomeCitta, nazione)).openConnection();
     }
 }
