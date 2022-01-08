@@ -70,6 +70,13 @@ public class Pressione {
     public void setValoreSuolo(int valoreSuolo) {
         this.valoreSuolo = valoreSuolo;
     }
+    /**
+     * <b>Getter</b> dell'attributo <code>data</code>.
+     * @return Data data.
+     */
+    public Data getData() {
+        return data;
+    }
 
     /**
      * Override del metodo <code>toString</code>.

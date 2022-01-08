@@ -81,7 +81,13 @@ public class Temperatura {
     public void setValoreMassimo(double valoreMassimo) {
         this.valoreMassimo = valoreMassimo;
     }
-
+    /**
+     * <b>Getter</b> dell'attributo <code>data</code>.
+     * @return Data data.
+     */
+    public Data getData() {
+        return data;
+    }
     /**
      * Override del metodo <code>toString</code>.
      * @return Stringa contenente le temperature reale e percepita alla corrispondente data.
