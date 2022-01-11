@@ -8,9 +8,9 @@ package it.univpm.models;
  */
 public class Pressione {
 
-    private int valore;
-    private int valoreMare;
-    private int valoreSuolo;
+    private long valore;
+    private long valoreMare;
+    private long valoreSuolo;
     private Data data;
 
     /**
@@ -21,7 +21,7 @@ public class Pressione {
      * @param dataEpoch Data nel formato "Epoch".
      *
      */
-    public Pressione(int valore, int valoreMare, int valoreSuolo, long dataEpoch) {
+    public Pressione(long valore, long valoreMare, long valoreSuolo, long dataEpoch) {
         this.valore = valore;
         this.valoreMare = valoreMare;
         this.valoreSuolo = valoreSuolo;
@@ -30,9 +30,9 @@ public class Pressione {
 
     /**
      * <b>Getter</b> dell'attributo <code>valore</code>.
-     * @return int valore.
+     * @return long valore.
      */
-    public int getValore() {
+    public long getValore() {
         return valore;
     }
     /**
@@ -44,9 +44,9 @@ public class Pressione {
     }
     /**
      * <b>Getter</b> dell'attributo <code>valoreMare</code>.
-     * @return int valoreMare.
+     * @return long valoreMare.
      */
-    public int getValoreMare() {
+    public long getValoreMare() {
         return valoreMare;
     }
     /**
@@ -58,9 +58,9 @@ public class Pressione {
     }
     /**
      * <b>Getter</b> dell'attributo <code>valoreSuolo</code>.
-     * @return int valoreSuolo.
+     * @return long valoreSuolo.
      */
-    public int getValoreSuolo() {
+    public long getValoreSuolo() {
         return valoreSuolo;
     }
     /**

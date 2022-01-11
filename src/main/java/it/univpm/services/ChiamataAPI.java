@@ -14,7 +14,7 @@ public class ChiamataAPI {
     }
 
     public static String generatoreURL(String nomeCitta, String nazione){
-        return "api.openweathermap.org/data/2.5/forecast?appid=" + CHIAVE_API + "&q=" + nomeCitta + "&country=" + nazione;
+        return "https://api.openweathermap.org/data/2.5/forecast?appid=" + CHIAVE_API + "&q=" + nomeCitta + "&country=" + nazione;
     }
 
     public static URLConnection chiamaAPI(String nomeCitta, String nazione) throws java.io.IOException {
