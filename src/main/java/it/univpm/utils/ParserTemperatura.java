@@ -25,13 +25,17 @@ public class ParserTemperatura extends Parser{
             JSONObject obj = (JSONObject) listaAPI.get(i);
             long dataEpoch = (long) obj.get("dt");
             JSONObject main = (JSONObject) obj.get("main");
-            double valoreReale = (double) main.get("temp");
-            double valorePercepito = (double) main.get("feels_like");
-            double valoreMinimo = (double) main.get("temp_min");
-            double valoreMassimo = (double) main.get("temp_max");
+            double valoreReale = doubleValue(main.get("temp"));
+            double valorePercepito = doubleValue(main.get("feels_like"));
+            double valoreMinimo = doubleValue(main.get("temp_min"));
+            double valoreMassimo = doubleValue(main.get("temp_max"));
             Temperatura nuovaTemp = new Temperatura(valoreReale, valorePercepito, valoreMinimo, valoreMassimo, dataEpoch);
             temperature.add(nuovaTemp);
         }
         return temperature;
+    }
+
+    private static double doubleValue(Object value) {
+        return (value instanceof Number ? ((Number)value).doubleValue() : -1.0);
     }
 }

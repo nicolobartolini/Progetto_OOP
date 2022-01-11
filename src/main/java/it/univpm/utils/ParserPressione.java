@@ -25,12 +25,16 @@ public class ParserPressione extends Parser{
             JSONObject obj = (JSONObject) listaAPI.get(i);
             long dataEpoch = (long) obj.get("dt");
             JSONObject main = (JSONObject) obj.get("main");
-            long valorePressione = (long) main.get("pressure");
-            long valoreMare = (long) main.get("sea_level");
-            long valoreSuolo = (long) main.get("grnd_level");
+            long valorePressione = longValue(main.get("pressure"));
+            long valoreMare = longValue(main.get("sea_level"));
+            long valoreSuolo = longValue(main.get("grnd_level"));
             Pressione nuovaPress = new Pressione(valorePressione, valoreMare, valoreSuolo, dataEpoch);
             pressioni.add(nuovaPress);
         }
         return pressioni;
+    }
+
+    private static long longValue(Object value) {
+        return (value instanceof Number ? ((Number)value).longValue() : -1);
     }
 }
