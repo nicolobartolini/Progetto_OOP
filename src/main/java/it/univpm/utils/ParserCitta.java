@@ -9,12 +9,29 @@ import org.json.simple.parser.ParseException;
 
 import java.util.Vector;
 
+/**
+ * <b>Classe</b> figlia di {@link #Parser} che permette di effettuare il parsing dei dati di una città.
+ *
+ * @author riccardopostacchini
+ * @author nicolobartolini
+ */
 public class ParserCitta extends Parser{
 
+    /**
+     * <b>Costruttore</b> della classe <code>ParserCitta</code>. Richiama il costruttore della superclasse.
+     * @param nomeCitta <b>Nome</b> della città.
+     * @param nazione <b>Nazione</b> a cui appartiene la città.
+     */
     public ParserCitta(String nomeCitta, String nazione) {
         super(nomeCitta, nazione);
     }
 
+    /**
+     * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati</code>. Effettua il parsing del JSONOBject di OpenWeather per restituire un istanza della classe Citta contenente i dati relativi a una città.
+     * @return Oggetto <code>Citta</code> contenente i dati relativi a una città.
+     * @throws java.io.IOException Eccezione relativo all'input/output.
+     * @throws ParseException Eccezione relativa al parsing.
+     */
     public Citta leggiDati() throws java.io.IOException, ParseException {
 
         JSONObject rispostaAPI = getRispostaAPI();
@@ -31,8 +48,7 @@ public class ParserCitta extends Parser{
         ParserPressione parsePress = new ParserPressione(getNomeCitta(), getNazione());
         Vector<Pressione> pressioni = parsePress.leggiDati();
 
-        Citta citta = new Citta(id, nome, nazione, coord, pressioni, temperature);
-        return citta;
+        return new Citta(id, nome, nazione, coord, pressioni, temperature);
 
     }
 }

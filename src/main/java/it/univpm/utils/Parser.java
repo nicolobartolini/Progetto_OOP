@@ -9,32 +9,72 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * <b>Classe astratta</b> contenente il nome della città e la nazione. Inoltre contiene un metodo astratto che si occupa della lettura dei dati e un metodo che chiama l'API di Openweather ed effettua il parsing ritornando il JSONObject corrispondente.
+ *
+ * @author riccardopostacchini
+ * @author nicolobartolini
+ */
 public abstract class Parser {
 
     private String nomeCitta;
     private String nazione;
 
+    /**
+     * <b>Costruttore</b> della classe <code>Parser</code>.
+     *
+     * @param nomeCitta <b>Nome</b> della città.
+     * @param nazione <b>Nazione</b> a cui appartiene la città.
+     */
     public Parser(String nomeCitta, String nazione) {
         this.nomeCitta = nomeCitta;
         this.nazione = nazione;
     }
 
+    /**
+     * <b>Getter</b> dell'attributo <code>nomeCitta</code>.
+     *
+     * @return String nomeCitta
+     */
     public String getNomeCitta() {
         return nomeCitta;
     }
 
+    /**
+     * <b>Setter</b> dell'attributo <code>nomeCitta</code>.
+     *
+     * @param nomeCitta <b>Nome</b> della città.
+     */
     public void setNomeCitta(String nomeCitta) {
         this.nomeCitta = nomeCitta;
     }
 
+    /**
+     * <b>Getter</b> dell'attributo <code>nazione</code>.
+     *
+     * @return String nazione
+     */
     public String getNazione() {
         return nazione;
     }
 
+    /**
+     * <b>Setter</b> dell'attributo <code>nazione</code>.
+     *
+     * @param nazione <b>Nazione</b> a cui appartiene la città.
+     */
     public void setNazione(String nazione) {
         this.nazione = nazione;
     }
 
+    /**
+     * <b>Metodo astratto</b> implementato nelle sottoclassi. Questo metodo permette di leggere un JSONOBject per estrarne i dati.
+     *
+     * @param <T> Template del tipo di ritorno delle implementazioni di questo metodo nelle sottoclassi. Può essere qualunque tipo.
+     * @return JSONOBject contenente i dati ottenuti dalla chiamata all'API di OpenWeather.
+     * @throws IOException Eccezione relativo all'input/output.
+     * @throws ParseException Eccezione relativa al parsing.
+     */
     public abstract <T> T leggiDati() throws IOException, ParseException;
 
     protected JSONObject getRispostaAPI() throws IOException, ParseException {
