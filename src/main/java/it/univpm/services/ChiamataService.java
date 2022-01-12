@@ -8,15 +8,33 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
+/**
+ * <b>Classe</b> che si occupa dei servizi relativi alla chiamata dell'API.
+ *
+ * @author riccardopostacchini
+ * @author nicolobartolini
+ */
+
 public class ChiamataService {
     private Citta citta;
     private ParserCitta parserCitta;
     //TODO filtri e statistiche
 
+    /**
+     * <b>Costruttore</b> della classe <code>ChiamataService</code>.
+     * @param nomeCitta nome della città della quale si vogliono sapere le previsioni.
+     * @param nazione nome della nazione di cui fa parte la città che si vuole cercare.
+     */
     public ChiamataService (String nomeCitta, String nazione){
         this.parserCitta = new ParserCitta(nomeCitta, nazione);
     }
 
+    /**
+     * Metodo che si occupa di elaborare i dati forniti dall'API, di effettuare il parsing e di trasferirli in un nuovo JSONObject.
+     * @return  JSONObject risultato.
+     * @throws IOException eccezione relativa all'input/output.
+     * @throws ParseException eccezione relativa al parsing.
+     */
     public JSONObject elaboraChiamata() throws IOException, ParseException {
         this.citta = this.parserCitta.leggiDati();
 
