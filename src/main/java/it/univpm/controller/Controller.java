@@ -19,4 +19,17 @@ public class Controller {
         ChiamataService service = new ChiamataService(nomeCitta, nazione);
         return service.elaboraChiamata();
     }
+
+    @GetMapping(value = "/getPressioni")
+    @ResponseBody
+    public JSONObject getPressioni(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
+                                   @RequestParam(name = "nation", defaultValue = "IT") String nazione) throws IOException, ParseException {
+
+        ChiamataService service = new ChiamataService(nomeCitta, nazione);
+        JSONObject ritorno = service.elaboraChiamata();
+        ritorno.remove("temperature");
+        return ritorno;
+
+    }
+
 }
