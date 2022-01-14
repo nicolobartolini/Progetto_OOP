@@ -1,6 +1,7 @@
 package it.univpm.controller;
 
 import it.univpm.services.ChiamataService;
+import it.univpm.utils.GestioneFile;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,22 @@ public class Controller {
         ritorno.remove("temperature");
         return ritorno;
 
+    }
+
+    @GetMapping(value = "/stampaFileJSON")
+    @ResponseBody
+    public String stampaFileJSON() throws IOException, ParseException {
+        ChiamataService service = new ChiamataService("Pescara", "IT");
+        GestioneFile.aggiornaFileJSON("Pescara", "IT", service.elaboraChiamata());
+        return "Il file è stato salvato in: " + GestioneFile.creaPercorso("Pescara", "It", "json");
+    }
+
+    @GetMapping(value = "/stampaFileCSV")
+    @ResponseBody
+    public String stampaFileCSV() throws IOException, ParseException {
+        ChiamataService service = new ChiamataService("Pescara", "IT");
+        GestioneFile.aggiornaFileCSV("Pescara", "IT", service.elaboraChiamata());
+        return "Il file è stato salvato in: " + GestioneFile.creaPercorso("Pescara", "It", "csv");
     }
 
 }
