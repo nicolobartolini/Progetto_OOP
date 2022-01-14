@@ -15,7 +15,7 @@ public class ChiamataAPI {
     /**
      *  <b>CHIAVE_API</b> è la chiave utilizzata per ricevere informazioni da OpenWeather.
      */
-    private final static String CHIAVE_API = "30c83cda5c0f4144140a7be526862c1f";
+    private final static String CHIAVE_API = "6fd6ef419f03c781fef936030248c339"; // "30c83cda5c0f4144140a7be526862c1f"
 
     /**
      * <b>Costruttore</b> della classe <code>ChiamataAPI</code>.
