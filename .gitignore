@@ -37,3 +37,7 @@ mvnw
 mvnw.cmd
 /lib
 /.mvn/wrapper
+
+
+/Pescara_IT_PressioniOgniOra.json
+/Pescara_IT_PressioniOgniOra.csv

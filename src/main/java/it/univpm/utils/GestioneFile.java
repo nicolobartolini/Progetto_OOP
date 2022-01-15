@@ -1,19 +1,21 @@
 package it.univpm.utils;
 
 import com.opencsv.CSVWriter;
+import it.univpm.services.ChiamataAPI;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GestioneFile {
 
     // L'intervallo di tempo tra una stampa di file e l'altra
-    private static final long PERIODO_TIMER = 1000 * 60 * 60 * 3;
+    private static final long PERIODO_TIMER = 10000; // * 60 * 60 * 3;
 
     // Crea la stringa del percorso in cui viene salvato il file
     public static String creaPercorso(String nomeCitta, String nazione, String tipoFile) {
@@ -31,6 +33,10 @@ public class GestioneFile {
             // Se il file non esiste lo crea
             if (!file.exists())
                 file.createNewFile();
+                FileWriter fileWriter = new FileWriter(percorso);
+                fileWriter.write("[]");
+                fileWriter.flush();
+                fileWriter.close();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +45,8 @@ public class GestioneFile {
     }
 
     // Aggiorna (o crea) il file JSON con i dati della pressione ogni PREIODO_TIMER (3 ore)
-    public static void aggiornaFileJSON(String nomeCitta, String nazione, JSONObject dati){
+    public static void aggiornaFileJSON(String nomeCitta, String nazione, JSONObject dati) throws IOException{
+        File file = creaFile(nomeCitta, nazione, "json");
         // Crea un timer
         Timer timer = new Timer ();
         // Crea un'azione timerata
@@ -47,19 +54,22 @@ public class GestioneFile {
             @Override
             // L'azione che viene controllata dal timertask
             public void run () {
-                // Prende il jsonarray associato alla chiave "pressioni" presente nel jsonobject "dati"
-                JSONArray pressioni = (JSONArray) dati.get("pressioni");
-                JSONArray risultato = new JSONArray();
-                // Aggiunge al jsonarray risultato il primo valore della pressione e la corrispondente data
-                JSONObject datoAttuale = new JSONObject();
-                datoAttuale.put("pressione", ((JSONObject) pressioni.get(0)).get("pressione"));
-                datoAttuale.put("dtFormat", ((JSONObject) pressioni.get(0)).get("dtFormat"));
-                risultato.add(datoAttuale);
+                JSONParser parser = new JSONParser();
+                try {
+                    Object o = parser.parse(new FileReader(creaPercorso(nomeCitta, nazione, "json")));
+                    JSONArray fileGiaPresente = (JSONArray) o;
 
-                try (FileWriter file = new FileWriter(creaFile(nomeCitta, nazione, "json"), true)) {
-                    file.write(risultato.toJSONString());
-                    file.flush();
-                } catch (IOException e) {
+                    JSONArray pressioni = (JSONArray) dati.get("pressioni");
+                    JSONObject datoAttuale = new JSONObject();
+                    datoAttuale.put("pressione", ((JSONObject) pressioni.get(0)).get("pressione"));
+                    datoAttuale.put("dtFormat", ((JSONObject) pressioni.get(0)).get("dtFormat"));
+                    fileGiaPresente.add(datoAttuale);
+
+                    FileWriter fileWriter = new FileWriter(creaPercorso(nomeCitta, nazione, "json"));
+                    fileWriter.write(fileGiaPresente.toJSONString());
+                    fileWriter.flush();
+                    fileWriter.close();
+                } catch (ParseException | IOException e) {
                     e.printStackTrace();
                 }
             }
