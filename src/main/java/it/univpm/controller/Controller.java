@@ -41,12 +41,5 @@ public class Controller {
         return "Il file è stato salvato in: " + GestioneFile.creaPercorso("Pescara", "It", "json");
     }
 
-    @GetMapping(value = "/stampaFileCSV")
-    @ResponseBody
-    public String stampaFileCSV() throws IOException, ParseException {
-        ChiamataService service = new ChiamataService("Pescara", "IT");
-        GestioneFile.aggiornaFileCSV("Pescara", "IT", service.elaboraChiamata());
-        return "Il file è stato salvato in: " + GestioneFile.creaPercorso("Pescara", "It", "csv");
-    }
 
 }
