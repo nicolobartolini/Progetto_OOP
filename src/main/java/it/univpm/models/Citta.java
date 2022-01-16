@@ -17,6 +17,8 @@ public class Citta {
     private Coordinate coord;
     private Vector<Pressione> pressioni;
     private Vector<Temperatura> temperature;
+    private Data primaOccorrenzaValori;
+    private Data ultimaOccorrenzaValori;
 
     /**
      * <b>Costruttore</b> della classe <code>Citta</code>.
@@ -34,6 +36,8 @@ public class Citta {
         this.coord = coord;
         this.pressioni = pressioni;
         this.temperature = temperature;
+        this.primaOccorrenzaValori = temperature.get(0).getData();
+        this.ultimaOccorrenzaValori = temperature.get(temperature.size() - 1).getData();
     }
 
     /**
@@ -127,8 +131,42 @@ public class Citta {
     }
 
     /**
+     * <b>Getter</b> dell'attributo <code>primaOccorrenzaValori</code>.
+     *
+     * @return primaOccorrenzaValori
+     */
+    public Data getPrimaOccorrenzaValori() {
+        return this.primaOccorrenzaValori;
+    }
+    /**
+     * <b>Setter</b> dell'attributo <code>primaOccorrenzaValori</code>.
+     *
+     * @param primaOccorrenzaValori prima data per la quale sono disponibili valori.
+     */
+    public void setPrimaOccorrenzaValori(Data primaOccorrenzaValori) {
+        this.primaOccorrenzaValori = primaOccorrenzaValori;
+    }
+
+    /**
+     * <b>Getter</b> dell'attributo <code>ultimaOccorrenzaValori</code>.
+     *
+     * @return ultimaOccorrenzaValori
+     */
+    public Data getUltimaOccorrenzaValori() {
+        return this.ultimaOccorrenzaValori;
+    }
+    /**
+     * <b>Setter</b> dell'attributo <code>ultimaOccorrenzaValori</code>.
+     *
+     * @param ultimaOccorrenzaValori ultima data per la quale sono disponibili valori.
+     */
+    public void setUltimaOccorrenzaValori(Data ultimaOccorrenzaValori) {
+        this.ultimaOccorrenzaValori = ultimaOccorrenzaValori;
+    }
+
+    /**
      * Override del metodo toString.
-     * @return String rappresentante i dati della citta'.
+     * @return String rappresentante i dati della città.
      */
     @Override
     public String toString() {
