@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class GestioneFile {
 
     // L'intervallo di tempo tra una stampa di file e l'altra
-    private static final long PERIODO_TIMER = 1000 * 60 * 60; // * 3; // 1 ORA -- TODO modificare in 3 ORE se vengono ripetuti 3 dati per ogni ora
+    private static final long PERIODO_TIMER = 1000 * 60 * 60 * 3; // 3 ORE
 
     // Crea la stringa del percorso in cui viene salvato il file
     public static String creaPercorso(String nomeCitta, String nazione) {
