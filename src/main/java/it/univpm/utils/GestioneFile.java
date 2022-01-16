@@ -15,14 +15,14 @@ public class GestioneFile {
     private static final long PERIODO_TIMER = 1000 * 60 * 60; // * 3; // 1 ORA -- TODO modificare in 3 ORE se vengono ripetuti 3 dati per ogni ora
 
     // Crea la stringa del percorso in cui viene salvato il file
-    public static String creaPercorso(String nomeCitta, String nazione, String tipoFile) {
-        return System.getProperty("user.dir") + "\\" + nomeCitta + "_" + nazione + "_" + "PressioniOgniOra." + tipoFile;
+    public static String creaPercorso(String nomeCitta, String nazione) {
+        return System.getProperty("user.dir") + "\\" + nomeCitta + "_" + nazione + "_" + "PressioniOgniOra.json";
     }
 
     // crea il file al percorso specificato
-    private static File creaFile (String nomeCitta, String nazione, String tipoFile){
+    private static File creaFile (String nomeCitta, String nazione){
 
-        String percorso = creaPercorso(nomeCitta, nazione, tipoFile);
+        String percorso = creaPercorso(nomeCitta, nazione);
         File file = new File(percorso);
 
         try {
@@ -42,7 +42,7 @@ public class GestioneFile {
     // Aggiorna (o crea) il file JSON con i dati della pressione ogni PREIODO_TIMER (3 ore)
     public static void aggiornaFileJSON(String nomeCitta, String nazione, JSONObject dati) {
 
-        File file = creaFile(nomeCitta, nazione, "json");
+        File file = creaFile(nomeCitta, nazione);
         // Crea un timer
         Timer timer = new Timer ();
         // Crea un'azione timerata
@@ -53,7 +53,7 @@ public class GestioneFile {
                 JSONParser parser = new JSONParser();
                 try {
                     // Crea un oggetto che viene associato al risultato del parsing del file json
-                    Object o = parser.parse(new FileReader(creaPercorso(nomeCitta, nazione, "json")));
+                    Object o = parser.parse(new FileReader(creaPercorso(nomeCitta, nazione)));
                     // L'oggetto appena creato (contenente il risultato del parsing) viene associato a un JSONArray che quindi conterrà i dati che erano già presenti nel file
                     JSONArray fileGiaPresente = (JSONArray) o;
 
@@ -68,7 +68,7 @@ public class GestioneFile {
                     fileGiaPresente.add(datoAttuale);
 
                     // Crea un FileWriter associato al file da modificare
-                    FileWriter fileWriter = new FileWriter(creaPercorso(nomeCitta, nazione, "json"));
+                    FileWriter fileWriter = new FileWriter(creaPercorso(nomeCitta, nazione));
                     // Cancella ciò che c'era scritto nel file e lo sostiuisce con il JSONArray aggiornato
                     fileWriter.write(fileGiaPresente.toJSONString());
                     fileWriter.close();
