@@ -67,4 +67,80 @@ public class FiltriTempReale implements FiltriInterface{
         StatisticheTempReale stat = new StatisticheTempReale(vTempReale);
         return stat.getVarianza();
     }
+
+    public double getMinimoFasciaOraria(Data oraIniziale, Data oraFinale) {
+        if ((oraIniziale.getDate().before(citta.getPrimaOccorrenzaValori().getDate()) || oraFinale.getDate().after(citta.getUltimaOccorrenzaValori().getDate()))
+                || oraFinale.getDate().before(oraIniziale.getDate())
+                || oraIniziale.getDate().equals(oraFinale.getDate())
+                || oraIniziale.getDate().getDay() != oraFinale.getDate().getDay()) {
+            //TODO eccezione
+
+        }
+        Vector<Temperatura> vTempReale = new Vector<>();
+        for (Temperatura t : citta.getTemperatura()) {
+            if (t.getData().getDate().getDay() == oraIniziale.getDate().getDay() && t.getData().getDate().getDay() == oraFinale.getDate().getDay()) {
+                if (t.getData().getDate().after(oraIniziale.getDate()) && t.getData().getDate().before(oraFinale.getDate()))
+                    vTempReale.add(t);
+            }
+        }
+        StatisticheTempReale stat = new StatisticheTempReale(vTempReale);
+        return stat.getMinimo();
+    }
+
+    public double getMassimoFasciaOraria(Data oraIniziale, Data oraFinale){
+        if ((oraIniziale.getDate().before(citta.getPrimaOccorrenzaValori().getDate()) || oraFinale.getDate().after(citta.getUltimaOccorrenzaValori().getDate()))
+                || oraFinale.getDate().before(oraIniziale.getDate())
+                || oraIniziale.getDate().equals(oraFinale.getDate())
+                || oraIniziale.getDate().getDay() != oraFinale.getDate().getDay()) {
+            //TODO eccezione
+
+        }
+        Vector<Temperatura> vTempReale = new Vector<>();
+        for (Temperatura t : citta.getTemperatura()) {
+            if (t.getData().getDate().getDay() == oraIniziale.getDate().getDay() && t.getData().getDate().getDay() == oraFinale.getDate().getDay()) {
+                if (t.getData().getDate().after(oraIniziale.getDate()) && t.getData().getDate().before(oraFinale.getDate()))
+                    vTempReale.add(t);
+            }
+        }
+        StatisticheTempReale stat = new StatisticheTempReale(vTempReale);
+        return stat.getMassimo();
+    }
+
+    public double getMediaFasciaOraria(Data oraIniziale, Data oraFinale){
+        if ((oraIniziale.getDate().before(citta.getPrimaOccorrenzaValori().getDate()) || oraFinale.getDate().after(citta.getUltimaOccorrenzaValori().getDate()))
+                || oraFinale.getDate().before(oraIniziale.getDate())
+                || oraIniziale.getDate().equals(oraFinale.getDate())
+                || oraIniziale.getDate().getDay() != oraFinale.getDate().getDay()) {
+            //TODO eccezione
+
+        }
+        Vector<Temperatura> vTempReale = new Vector<>();
+        for (Temperatura t : citta.getTemperatura()) {
+            if (t.getData().getDate().getDay() == oraIniziale.getDate().getDay() && t.getData().getDate().getDay() == oraFinale.getDate().getDay()) {
+                if (t.getData().getDate().after(oraIniziale.getDate()) && t.getData().getDate().before(oraFinale.getDate()))
+                    vTempReale.add(t);
+            }
+        }
+        StatisticheTempReale stat = new StatisticheTempReale(vTempReale);
+        return stat.getMedia();
+    }
+
+    public double getVarianzaFasciaOraria(Data oraIniziale, Data oraFinale){
+        if ((oraIniziale.getDate().before(citta.getPrimaOccorrenzaValori().getDate()) || oraFinale.getDate().after(citta.getUltimaOccorrenzaValori().getDate()))
+                || oraFinale.getDate().before(oraIniziale.getDate())
+                || oraIniziale.getDate().equals(oraFinale.getDate())
+                || oraIniziale.getDate().getDay() != oraFinale.getDate().getDay()) {
+            //TODO eccezione
+
+        }
+        Vector<Temperatura> vTempReale = new Vector<>();
+        for (Temperatura t : citta.getTemperatura()) {
+            if (t.getData().getDate().getDay() == oraIniziale.getDate().getDay() && t.getData().getDate().getDay() == oraFinale.getDate().getDay()) {
+                if (t.getData().getDate().after(oraIniziale.getDate()) && t.getData().getDate().before(oraFinale.getDate()))
+                    vTempReale.add(t);
+            }
+        }
+        StatisticheTempReale stat = new StatisticheTempReale(vTempReale);
+        return stat.getVarianza();
+    }
 }
