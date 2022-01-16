@@ -68,7 +68,7 @@ public class GestioneFile {
                     datoAttuale.put("dtFormat", ((JSONObject) pressioni.get(0)).get("dtFormat"));
                     datoAttuale.put("dt", ((JSONObject) pressioni.get(0)).get("dt"));
                     // Aggiunge il JSONObject con i dati attuali al JSONArray contenente i dati già presenti nel file solo se l'ultimo dato aggiunto corrisponde ad un orario diverso
-                    if (((JSONObject)fileGiaPresente.get(fileGiaPresente.size() - 1)).get("dt") != datoAttuale.get("dt")) {
+                    if (!(((JSONObject) fileGiaPresente.get(fileGiaPresente.size() - 1)).get("dt").equals(datoAttuale.get("dt")))) {
                         fileGiaPresente.add(datoAttuale);
 
                         // Crea un FileWriter associato al file da modificare
