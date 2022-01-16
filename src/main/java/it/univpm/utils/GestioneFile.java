@@ -67,14 +67,16 @@ public class GestioneFile {
                     datoAttuale.put("pressione", ((JSONObject) pressioni.get(0)).get("pressione"));
                     datoAttuale.put("dtFormat", ((JSONObject) pressioni.get(0)).get("dtFormat"));
                     datoAttuale.put("dt", ((JSONObject) pressioni.get(0)).get("dt"));
-                    // Aggiunge il JSONObject con i dati attuali al JSONArray contenente i dati già presenti nel file
-                    fileGiaPresente.add(datoAttuale);
+                    // Aggiunge il JSONObject con i dati attuali al JSONArray contenente i dati già presenti nel file solo se l'ultimo dato aggiunto corrisponde ad un orario diverso
+                    if (((JSONObject)fileGiaPresente.get(fileGiaPresente.size() - 1)).get("dt") != datoAttuale.get("dt")) {
+                        fileGiaPresente.add(datoAttuale);
 
-                    // Crea un FileWriter associato al file da modificare
-                    FileWriter fileWriter = new FileWriter(creaPercorso(nomeCitta, nazione));
-                    // Cancella ciò che c'era scritto nel file e lo sostiuisce con il JSONArray aggiornato
-                    fileWriter.write(fileGiaPresente.toJSONString());
-                    fileWriter.close();
+                        // Crea un FileWriter associato al file da modificare
+                        FileWriter fileWriter = new FileWriter(creaPercorso(nomeCitta, nazione));
+                        // Cancella ciò che c'era scritto nel file e lo sostiuisce con il JSONArray aggiornato
+                        fileWriter.write(fileGiaPresente.toJSONString());
+                        fileWriter.close();
+                    }
                 } catch (ParseException | IOException e) {
                     e.printStackTrace();
                 }
