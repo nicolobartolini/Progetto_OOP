@@ -12,7 +12,7 @@ import java.util.Date;
 public class Data {
 
     private long dataEpoch;
-    private Date data;
+    private Date date;
     private String dataFormattata;
 
     /**
@@ -21,9 +21,9 @@ public class Data {
      */
     public Data(long dataEpoch) {
         this.dataEpoch = dataEpoch;
-        this.data = new Date(dataEpoch * 1000);
+        this.date = new Date(dataEpoch * 1000);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        this.dataFormattata = sdf.format(this.data);
+        this.dataFormattata = sdf.format(this.date);
     }
 
     /**
@@ -46,16 +46,16 @@ public class Data {
      * <b>Getter</b> dell'attributo <code>data</code>.
      * @return Date data.
      */
-    public Date getData() {
-        return data;
+    public Date getDate() {
+        return date;
     }
     /**
      * <b>Setter</b> dell'attributo <code>data</code>.
      *
-     * @param data data (istanza della classe Date di Java).
+     * @param date data (istanza della classe Date di Java).
      */
-    public void setData(Date data) {
-        this.data = data;
+    public void setDate(Date date) {
+        this.date = date;
     }
     /**
      * <b>Getter</b> dell'attributo <code>dataFormattata</code>.
