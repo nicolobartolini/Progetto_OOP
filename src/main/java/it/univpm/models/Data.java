@@ -41,6 +41,22 @@ public class Data {
     public void setDataEpoch(long dataEpoch) {
         this.dataEpoch = dataEpoch;
     }
+
+    /**
+     * <b>Getter</b> dell'attributo <code>data</code>.
+     * @return Date data.
+     */
+    public Date getData() {
+        return data;
+    }
+    /**
+     * <b>Setter</b> dell'attributo <code>data</code>.
+     *
+     * @param data data (istanza della classe Date di Java).
+     */
+    public void setData(Date data) {
+        this.data = data;
+    }
     /**
      * <b>Getter</b> dell'attributo <code>dataFormattata</code>.
      * @return String dataFormattata.
