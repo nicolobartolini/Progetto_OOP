@@ -1,5 +1,6 @@
 package it.univpm.utils;
 
+import it.univpm.services.ChiamataService;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -12,7 +13,7 @@ import java.util.TimerTask;
 public class GestioneFile {
 
     // L'intervallo di tempo tra una stampa di file e l'altra
-    private static final long PERIODO_TIMER = 1000 * 60 * 60 * 3; // 3 ORE
+    private static final long PERIODO_TIMER = 1000 * 60 * 60; // * 3; // 3 ORE
 
     // Crea la stringa del percorso in cui viene salvato il file
     public static String creaPercorso(String nomeCitta, String nazione) {
@@ -40,7 +41,7 @@ public class GestioneFile {
     }
 
     // Aggiorna (o crea) il file JSON con i dati della pressione ogni PREIODO_TIMER (3 ore)
-    public static void aggiornaFileJSON(String nomeCitta, String nazione, JSONObject dati) {
+    public static void aggiornaFileJSON(String nomeCitta, String nazione) {
 
         File file = creaFile(nomeCitta, nazione);
         // Crea un timer
@@ -52,6 +53,8 @@ public class GestioneFile {
             public void run () {
                 JSONParser parser = new JSONParser();
                 try {
+                    ChiamataService service = new ChiamataService(nomeCitta, nazione);
+                    JSONObject dati = service.elaboraChiamata();
                     // Crea un oggetto che viene associato al risultato del parsing del file json
                     Object o = parser.parse(new FileReader(creaPercorso(nomeCitta, nazione)));
                     // L'oggetto appena creato (contenente il risultato del parsing) viene associato a un JSONArray che quindi conterrà i dati che erano già presenti nel file

@@ -37,8 +37,7 @@ public class Controller {
     @ResponseBody
     public String stampaFileJSON(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
                                  @RequestParam(name = "nation", defaultValue = "IT") String nazione) throws IOException, ParseException {
-        ChiamataService service = new ChiamataService(nomeCitta, nazione);
-        GestioneFile.aggiornaFileJSON(nomeCitta, nazione, service.elaboraChiamata());
+        GestioneFile.aggiornaFileJSON(nomeCitta, nazione);
         return "Il file è stato salvato in: " + GestioneFile.creaPercorso(nomeCitta, nazione);
     }
 
