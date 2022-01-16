@@ -35,10 +35,11 @@ public class Controller {
 
     @GetMapping(value = "/stampaFileJSON")
     @ResponseBody
-    public String stampaFileJSON() throws IOException, ParseException {
-        ChiamataService service = new ChiamataService("Pescara", "IT");
-        GestioneFile.aggiornaFileJSON("Pescara", "IT", service.elaboraChiamata());
-        return "Il file è stato salvato in: " + GestioneFile.creaPercorso("Pescara", "It", "json");
+    public String stampaFileJSON(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
+                                 @RequestParam(name = "nation", defaultValue = "IT") String nazione) throws IOException, ParseException {
+        ChiamataService service = new ChiamataService(nomeCitta, nazione);
+        GestioneFile.aggiornaFileJSON(nomeCitta, nazione, service.elaboraChiamata());
+        return "Il file è stato salvato in: " + GestioneFile.creaPercorso(nomeCitta, nazione);
     }
 
 
