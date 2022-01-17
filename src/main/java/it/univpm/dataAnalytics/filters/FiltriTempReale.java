@@ -8,12 +8,10 @@ import it.univpm.models.Temperatura;
 import java.time.LocalDateTime;
 import java.util.Vector;
 
-public class FiltriTempReale implements FiltriInterface{
-
-    private Citta citta;
+public class FiltriTempReale extends FiltriTemp implements FiltriInterface{
 
     public FiltriTempReale(Citta citta) {
-        this.citta = citta;
+        super(citta);
     }
 
     public double getMinimoGiornaliero(LocalDateTime giorno){
