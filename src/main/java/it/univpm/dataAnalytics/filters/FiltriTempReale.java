@@ -5,6 +5,7 @@ import it.univpm.models.Citta;
 import it.univpm.models.Data;
 import it.univpm.models.Temperatura;
 
+import java.time.LocalDateTime;
 import java.util.Vector;
 
 public class FiltriTempReale implements FiltriInterface{
@@ -15,79 +16,79 @@ public class FiltriTempReale implements FiltriInterface{
         this.citta = citta;
     }
 
-    public double getMinimoGiornaliero(Data giorno){
+    public double getMinimoGiornaliero(LocalDateTime giorno){
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getMinimo();
     }
 
-    public double getMassimoGiornaliero(Data giorno){
+    public double getMassimoGiornaliero(LocalDateTime giorno){
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getMassimo();
     }
 
-    public double getMediaGiornaliera(Data giorno){
+    public double getMediaGiornaliera(LocalDateTime giorno){
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getMedia();
     }
 
-    public double getVarianzaGiornaliera(Data giorno){
+    public double getVarianzaGiornaliera(LocalDateTime giorno){
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getVarianza();
     }
 
-    public double getMinimoFasciaOraria(Data oraIniziale, Data oraFinale) {
+    public double getMinimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) {
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getMinimo();
     }
 
-    public double getMassimoFasciaOraria(Data oraIniziale, Data oraFinale){
+    public double getMassimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale){
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getMassimo();
     }
 
-    public double getMediaFasciaOraria(Data oraIniziale, Data oraFinale){
+    public double getMediaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale){
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getMedia();
     }
 
-    public double getVarianzaFasciaOraria(Data oraIniziale, Data oraFinale){
+    public double getVarianzaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale){
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getVarianza();
     }
 
-    private boolean isGiornoValido(Data giorno) {
-        return !giorno.getDate().before(citta.getPrimaOccorrenzaValori().getDate())
-                && !giorno.getDate().after(citta.getUltimaOccorrenzaValori().getDate());
+    private boolean isGiornoValido(LocalDateTime giorno) {
+        return !giorno.isBefore(citta.getPrimaOccorrenzaValori().getDate())
+                && !giorno.isAfter(citta.getUltimaOccorrenzaValori().getDate());
     }
 
-    private StatisticheTempReale getStatisticheGiornaliere(Data giorno) {
+    private StatisticheTempReale getStatisticheGiornaliere(LocalDateTime giorno) {
         if(!isGiornoValido(giorno)){
             //TODO eccezione
         }
         Vector<Temperatura> vTempReale = new Vector<>();
         for(Temperatura t : citta.getTemperatura()){
-            if (t.getData().getDate().getDay() == giorno.getDate().getDay())
+            if (t.getData().getDate().getDayOfMonth() == giorno.getDayOfMonth())
                 vTempReale.add(t);
         }
         return new StatisticheTempReale(vTempReale);
     }
 
-    private boolean isFasciaOrariaValida(Data oraIniziale, Data oraFinale) {
-        return (!oraIniziale.getDate().before(citta.getPrimaOccorrenzaValori().getDate())
-                && !oraFinale.getDate().after(citta.getUltimaOccorrenzaValori().getDate()))
-                && !oraFinale.getDate().before(oraIniziale.getDate())
-                && !oraIniziale.getDate().equals(oraFinale.getDate())
-                && oraIniziale.getDate().getDay() == oraFinale.getDate().getDay();
+    private boolean isFasciaOrariaValida(LocalDateTime oraIniziale, LocalDateTime oraFinale) {
+        return (!oraIniziale.isBefore(citta.getPrimaOccorrenzaValori().getDate())
+                && !oraFinale.isAfter(citta.getUltimaOccorrenzaValori().getDate()))
+                && !oraFinale.isBefore(oraIniziale)
+                && !oraIniziale.equals(oraFinale)
+                && oraIniziale.getDayOfMonth() == oraFinale.getDayOfMonth();
     }
 
-    private StatisticheTempReale getStatisticheFasciaOraria(Data oraIniziale, Data oraFinale) {
+    private StatisticheTempReale getStatisticheFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) {
         if (!isFasciaOrariaValida(oraIniziale, oraFinale)) {
             // TODO eccezione
         }
         Vector<Temperatura> vTempReale = new Vector<>();
         for (Temperatura t : citta.getTemperatura()) {
-            if (t.getData().getDate().getDay() == oraIniziale.getDate().getDay() && t.getData().getDate().getDay() == oraFinale.getDate().getDay()) {
-                if (t.getData().getDate().after(oraIniziale.getDate()) && t.getData().getDate().before(oraFinale.getDate()))
+            if (t.getData().getDate().getDayOfMonth() == oraIniziale.getDayOfMonth() && t.getData().getDate().getDayOfMonth() == oraFinale.getDayOfMonth()) {
+                if (t.getData().getDate().isAfter(oraIniziale) && t.getData().getDate().isBefore(oraFinale))
                     vTempReale.add(t);
             }
         }
