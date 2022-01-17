@@ -1,5 +1,8 @@
 package it.univpm.models;
 
+/**
+ * <b>Classe</b> contenente il valore previsto della pressione nella corrispondente data.
+ */
 public class Temperatura {
 
     private double valoreReale;
@@ -88,19 +91,4 @@ public class Temperatura {
     public Data getData() {
         return data;
     }
-    /**
-     * Override del metodo <code>toString</code>.
-     * @return Stringa contenente le temperature reale e percepita alla corrispondente data.
-     */
-    @Override
-    public String toString() {
-        return "Temperatura{" +
-                "valoreReale=" + valoreReale +
-                ", valorePercepito=" + valorePercepito +
-                ", valoreMinimo=" + valoreMinimo +
-                ", valoreMassimo=" + valoreMassimo +
-                ", data=" + data +
-                '}';
-    }
-    //TODO equals
 }

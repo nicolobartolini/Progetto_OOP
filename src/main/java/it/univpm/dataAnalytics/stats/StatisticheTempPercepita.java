@@ -4,10 +4,21 @@ import it.univpm.models.Temperatura;
 
 import java.util.Vector;
 
+/**
+ * <b>Classe</b> che implementa <code>StatisticheInterface</code>. Si occupa di calcolare i valori statistici (minimo, massimo, media e varianza) di una serie di valori relativi alla temperatura <i>percepita</i>.
+ *
+ * @author nicolobartolini
+ * @author riccardopostacchini
+ */
 public class StatisticheTempPercepita implements StatisticheInterface{
 
     private double[] arrayTempPercepita;
 
+    /**
+     * <b>Costruttore</b> della classe. Si occupa anche di estrarre i semplici valori numerici delle temperature percepite dal vettore di temperature preso come parametro e trasferirli nell'attributo della classe <code>arrayTempPercepita</code>.
+     *
+     * @param vTempPercepita Vettore contenente i valori delle temperature.
+     */
     public StatisticheTempPercepita (Vector<Temperatura> vTempPercepita){
         arrayTempPercepita = new double[vTempPercepita.size()];
         for (int i = 0; i < vTempPercepita.size(); i++)

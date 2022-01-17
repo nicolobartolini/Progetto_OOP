@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Vector;
 
 /**
- * <b>Classe</b> che contiene i parametri che caratterizzano una <i>citta'</i>.
+ * <b>Classe</b> contenente i parametri che caratterizzano una citta'.
  *
  * @author riccardopostacchini
  * @author nicolobartolini
@@ -23,10 +23,10 @@ public class Citta {
     /**
      * <b>Costruttore</b> della classe <code>Citta</code>.
      *
-     * @param id Codice identificativo della citta'.
-     * @param nome Nome della citta'.
-     * @param nazione Nazione in cui la citta' si trova.
-     * @param coord Coordinate della citta' date da longitudine e latitudine.
+     * @param id <b>Codice identificativo</b> della citta'.
+     * @param nome <b>Nome</b> della citta'.
+     * @param nazione <b>Nazione</b> in cui la citta' si trova.
+     * @param coord <b>Coordinate</b> della citta' date da longitudine e latitudine.
      *
      */
     public Citta(long id, String nome, String nazione, Coordinate coord, Vector<Pressione> pressioni, Vector<Temperatura> temperature){
@@ -163,28 +163,4 @@ public class Citta {
     public void setUltimaOccorrenzaValori(Data ultimaOccorrenzaValori) {
         this.ultimaOccorrenzaValori = ultimaOccorrenzaValori;
     }
-
-    /**
-     * Override del metodo toString.
-     * @return String rappresentante i dati della città.
-     */
-    @Override
-    public String toString() {
-        return "Citta{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", coord=" + coord +
-                ", nazione='" + nazione + '\'' +
-                ", pressioni=" + pressioni +
-                ", temperatura=" + temperature +
-                '}';
-    }
-/*
-    @Override
-    public boolean equals(Object o) {
-        //TODO equals
-        return true;
-    }
-
- */
 }

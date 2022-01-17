@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 /**
- * <b>Classe</b> figlia di {@link #Parser} che permette di effettuare il parsing dei dati relativi alle temperature di una città.
+ * <b>Classe</b> figlia di <code>Parser</code> che permette di effettuare il parsing dei dati relativi alle temperature di una citta'.
  *
  * @author riccardopostacchini
  * @author nicolobartolini
@@ -26,9 +26,9 @@ public class ParserTemperatura extends Parser{
     }
 
     /**
-     * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati</code>. Effettua il parsing del JSONOBject di OpenWeather per restituire un vettore d'istanze della classe Temperatura.
-     * @return Vettore <code>temperature</code> contenente le varie previsioni delle temperature.
-     * @throws java.io.IOException Eccezione relativo all'input/output.
+     * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati()</code>. Effettua il parsing del JSONObject di OpenWeather per restituire un vettore d'istanze della classe <code>Temperatura</code>.
+     * @return <code>Vector<Temperatura></code> - Vettore contenente le varie previsioni delle temperature.
+     * @throws java.io.IOException Eccezione relativa all'input/output.
      * @throws ParseException Eccezione relativa al parsing.
      */
     public Vector<Temperatura> leggiDati() throws IOException, ParseException {
@@ -52,9 +52,9 @@ public class ParserTemperatura extends Parser{
     }
 
     /**
-     * <b>Metodo statico</b> necessario per effettuare il parsing dei valori di tipo <code>double</code> all'interno del metodo {@link #leggiDati()}. Senza l'utilizzo di questo metodo il parsing porterebbe a una <code>ClassCastException</code>.
+     * <b>Metodo statico</b> necessario per effettuare il parsing dei valori di tipo <code>double</code> all'interno del metodo <code>leggiDati()</code>. Senza l'utilizzo di questo metodo il parsing porterebbe a una <code>ClassCastException</code>.
      * @param value Valore da controllare.
-     * @return Valore <code>value</code> prima castato a <code>Number</code>, poi a <code>double</code>.
+     * @return <code>double</code> - Valore <code>value</code> prima castato a <code>Number</code>, poi a <code>double</code>.
      */
     private static double doubleValue(Object value) {
         return (value instanceof Number ? ((Number)value).doubleValue() : -1.0);

@@ -8,8 +8,18 @@ import it.univpm.models.Temperatura;
 import java.time.LocalDateTime;
 import java.util.Vector;
 
+/**
+ * <b>Classe</b> figlia di <code>FiltriTemp</code> e che implementa <code>FiltriInterface</code>. Si occupa di filtrare le statistiche della temperatura reale.
+ *
+ * @author nicolobartolini
+ * @author riccardopostacchini
+ */
 public class FiltriTempReale extends FiltriTemp implements FiltriInterface{
 
+    /**
+     * <b>Costruttore</b> della classe. Richiama il costruttore della superclasse.
+     * @param citta Citta' contenente i valori che saranno necessari ai vari filtri.
+     */
     public FiltriTempReale(Citta citta) {
         super(citta);
     }
@@ -54,11 +64,11 @@ public class FiltriTempReale extends FiltriTemp implements FiltriInterface{
         return stat.getVarianza();
     }
 
-    private boolean isGiornoValido(LocalDateTime giorno) {
-        return !giorno.isBefore(citta.getPrimaOccorrenzaValori().getDate())
-                && !giorno.isAfter(citta.getUltimaOccorrenzaValori().getDate());
-    }
-
+    /**
+     * <b>Metodo</b> che fornisce alla classe <code>StatisticheTempReale</code> un vettore di temperature filtrato, relativo solo a un giorno.
+     * @param giorno Giorno richiesto.
+     * @return <code>StatisticheTempReale</code> - Istanza della classe di statistica relativa alla temperatura reale con riferimento al vettore di temperature filtrato.
+     */
     private StatisticheTempReale getStatisticheGiornaliere(LocalDateTime giorno) {
         if(!isGiornoValido(giorno)){
             //TODO eccezione
@@ -71,14 +81,12 @@ public class FiltriTempReale extends FiltriTemp implements FiltriInterface{
         return new StatisticheTempReale(vTempReale);
     }
 
-    private boolean isFasciaOrariaValida(LocalDateTime oraIniziale, LocalDateTime oraFinale) {
-        return (!oraIniziale.isBefore(citta.getPrimaOccorrenzaValori().getDate())
-                && !oraFinale.isAfter(citta.getUltimaOccorrenzaValori().getDate()))
-                && !oraFinale.isBefore(oraIniziale)
-                && !oraIniziale.equals(oraFinale)
-                && oraIniziale.getDayOfMonth() == oraFinale.getDayOfMonth();
-    }
-
+    /**
+     * <b>Metodo</b> che fornisce alla classe <code>StatisticheTempReale</code> un vettore di temperature filtrato, relativo solo a una fascia oraria.
+     * @param oraIniziale Ora iniziale della fascia oraria richiesta.
+     * @param oraFinale Ora finale della fascia oraria richiesta.
+     * @return <code>StatisticheTempReale</code> - Istanza della classe di statistica relativa alla temperatura reale con riferimento al vettore di temperature filtrato.
+     */
     private StatisticheTempReale getStatisticheFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) {
         if (!isFasciaOrariaValida(oraIniziale, oraFinale)) {
             // TODO eccezione

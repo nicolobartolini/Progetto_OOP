@@ -52,18 +52,4 @@ public class Coordinate {
     public void setLongitude(double longitudine) {
         this.longitudine = longitudine;
     }
-
-    /**
-     * Override del metodo <code>toString</code>.
-     * @return String rappresentante le coordinate.
-     */
-    @Override
-    public String toString() {
-        return "Coordinate{" +
-                "latitudine=" + latitudine +
-                ", longitudine=" + longitudine +
-                '}';
-    }
-
-    // TODO equals.
 }

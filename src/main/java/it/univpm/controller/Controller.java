@@ -24,11 +24,24 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Vector;
 
+/**
+ * <b>Classe</b> controller che si occupa di gestire le varie rotte dell'applicazione.
+ *
+ * @author nicolobartolini
+ * @author riccardopostacchini
+ */
 @RestController
 public class Controller {
 
-    // ChiamataService service;
-
+    /**
+     * Rotta che, data una citta', restituisce tutte le previsioni relative alle pressioni e alle temperature per i prossimi 5 giorni.
+     *
+     * @param nomeCitta <b>Nome</b> della citta'.
+     * @param nazione <b>Nazione</b> della citta'.
+     * @return <code>JSONObject</code> - JSONObject contenente le informazioni sulle pressioni, sulle temperature e sulla citta'.
+     * @throws IOException    the io exception
+     * @throws ParseException the parse exception
+     */
     @GetMapping("/getGeneral")
     @ResponseBody
     public JSONObject getAllPressTemp(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
@@ -37,6 +50,15 @@ public class Controller {
         return service.elaboraChiamata();
     }
 
+    /**
+     * Rotta che, data una citta', restituisce tutte le previsioni relative alle pressioni per i prossimi 5 giorni.
+     *
+     * @param nomeCitta <b>Nome</b> della citta'.
+     * @param nazione <b>Nazione</b> della citta'.
+     * @return <code>JSONObject</code> - JSONObject contenente le previsioni sulle pressioni.
+     * @throws IOException Eccezione relativa all'input/output.
+     * @throws ParseException Eccezione relativa al parsing.
+     */
     @GetMapping("/getPressioni")
     @ResponseBody
     public JSONObject getPressioni(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
@@ -49,7 +71,16 @@ public class Controller {
 
     }
 
-    @PostMapping("/stampaFileJSON")
+    /**
+     * Rotta che esegue il metodo di accumulo dati sulla pressione e restituisce una stringa informativa sul percorso del file salvato.
+     *
+     * @param nomeCitta <b>Nome</b> della citta'.
+     * @param nazione <b>Nazione</b> della citta'.
+     * @return <code>String</code> - Stringa informativa sul percorso del file salvato.
+     * @throws IOException Eccezione relativa all'input/output.
+     * @throws ParseException Eccezione relativa al parsing.
+     */
+    @GetMapping("/stampaFileJSON")
     @ResponseBody
     public String stampaFileJSON(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
                                  @RequestParam(name = "nation", defaultValue = "IT") String nazione) throws IOException, ParseException {
@@ -57,6 +88,22 @@ public class Controller {
         return "Il file è stato salvato in: " + GestioneFile.creaPercorso(nomeCitta, nazione);
     }
 
+    /**
+     * Rotta che si occupa del filtraggio delle statistiche relative alla temperatura.
+     *
+     * @param nomeCitta  <b>Nome</b> della citta'.
+     * @param nazione    <b>Nazione</b> della citta'.
+     * @param day        <b>Giorno</b> del periodo di filtro richiesto.
+     * @param month      <b>Mese</b> del periodo di filtro richiesto.
+     * @param year       <b>Anno</b> del periodo di filtro richiesto.
+     * @param end_hour   <b>Ora finale</b> della fascia oraria richiesta.
+     * @param start_hour <b>Ora iniziale</b> della fascia oraria richiesta.
+     * @param tipoFiltro Tipo di filtraggio: giornaliero o a fascia oraria.
+     * @param tipoTemp   Tipo di temperatura: reale o percepita.
+     * @return <code>JSONObject</code> - JSONObject contenente il risultato dei filtri richiesti.
+     * @throws IOException Eccezione relativa all'input/output.
+     * @throws ParseException Eccezione relativa al parsing.
+     */
     @GetMapping({"/filtriTemperature/{tipoTemp}/{tipoFiltro}/{year}/{month}/{day}/{start_hour}/{end_hour}", "/filtriTemperature/{tipoTemp}/{tipoFiltro}/{year}/{month}/{day}"})
     @ResponseBody
     public JSONObject filtraTemp(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
@@ -186,6 +233,16 @@ public class Controller {
         return new JSONObject();
     }
 
+    /**
+     * Rotta che si occupa delle statistiche sull'intero intervallo di 5 giorni relative alla temperatura oppure allo storico delle pressioni.
+     *
+     * @param nomeCitta  <b>Nome</b> della citta'.
+     * @param nazione    <b>Nazione</b> della citta'.
+     * @param tipoDato   Tipo di dato del quale si vogliono ottenere le statistiche: pressione, temperature reale o temperatura percepita.
+     * @return <code>JSONObject</code> - JSONObject contenente i dati richiesti.
+     * @throws IOException Eccezione relativa all'input/output.
+     * @throws ParseException Eccezione relativa al parsing.
+     */
     @GetMapping(value = "/stats/{tipoDato}")
     @ResponseBody
     public JSONObject getStatistiche(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,

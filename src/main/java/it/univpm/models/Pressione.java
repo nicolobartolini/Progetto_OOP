@@ -77,21 +77,4 @@ public class Pressione {
     public Data getData() {
         return data;
     }
-
-    /**
-     * Override del metodo <code>toString</code>.
-     * @return Stringa contenente il valore della pressione, della pressione sul livello del mare e della pressione sul livello del suolo alla corrispondente data.
-     */
-
-    @Override
-    public String toString() {
-        return "Pressione{" +
-                "valore=" + valore +
-                "valoreMare=" + valoreMare +
-                "valoreSuolo=" + valoreSuolo+
-                ", data=" + data +
-                '}';
-    }
-
-    //TODO equals
 }

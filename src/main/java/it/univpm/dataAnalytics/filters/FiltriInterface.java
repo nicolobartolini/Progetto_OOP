@@ -1,9 +1,13 @@
 package it.univpm.dataAnalytics.filters;
 
-import it.univpm.models.Data;
-
 import java.time.LocalDateTime;
 
+/**
+ * <b>Interfaccia</b> contenente i metodi astratti necessari per il filtraggio dei valori.
+ *
+ * @author nicolobartolini
+ * @author riccardopostacchini
+ */
 public interface FiltriInterface {
 
     double getMinimoGiornaliero(LocalDateTime giorno);

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * <b>Classe astratta</b> contenente il nome della città e la nazione. Inoltre contiene un metodo astratto che si occupa della lettura dei dati e un metodo che chiama l'API di Openweather ed effettua il parsing ritornando il JSONObject corrispondente.
+ * <b>Classe astratta</b> contenente il nome della citta' e la nazione. Inoltre contiene un metodo astratto che si occupa della lettura dei dati e un metodo che chiama l'API di Openweather ed effettua il parsing ritornando il JSONObject corrispondente.
  *
  * @author riccardopostacchini
  * @author nicolobartolini
@@ -23,8 +23,8 @@ public abstract class Parser {
     /**
      * <b>Costruttore</b> della classe <code>Parser</code>.
      *
-     * @param nomeCitta <b>Nome</b> della città.
-     * @param nazione <b>Nazione</b> a cui appartiene la città.
+     * @param nomeCitta <b>Nome</b> della citta'.
+     * @param nazione <b>Nazione</b> a cui appartiene la citta'.
      */
     public Parser(String nomeCitta, String nazione) {
         this.nomeCitta = nomeCitta;
@@ -71,7 +71,7 @@ public abstract class Parser {
      * <b>Metodo astratto</b> implementato nelle sottoclassi. Questo metodo permette di leggere un JSONOBject per estrarne i dati.
      *
      * @param <T> Template del tipo di ritorno delle implementazioni di questo metodo nelle sottoclassi. Può essere qualunque tipo.
-     * @return JSONOBject contenente i dati ottenuti dalla chiamata all'API di OpenWeather.
+     * @return <code>JSONObject</code> - JSONObject contenente i dati ottenuti dalla chiamata all'API di OpenWeather.
      * @throws IOException Eccezione relativo all'input/output.
      * @throws ParseException Eccezione relativa al parsing.
      */

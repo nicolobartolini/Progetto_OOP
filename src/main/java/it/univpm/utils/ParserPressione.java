@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 /**
- * <b>Classe</b> figlia di {@link #Parser} che permette di effettuare il parsing dei dati relativi alle pressioni di una città.
+ * <b>Classe</b> figlia di <code>Parser</code> che permette di effettuare il parsing dei dati relativi alle pressioni di una citta'.
  *
  * @author riccardopostacchini
  * @author nicolobartolini
@@ -26,8 +26,8 @@ public class ParserPressione extends Parser{
     }
 
     /**
-     * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati</code>. Effettua il parsing del JSONOBject di OpenWeather per restituire un vettore d'istanze della classe Pressione.
-     * @return Vettore <code>pressioni</code> contenente le varie previsioni delle pressioni.
+     * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati</code>. Effettua il parsing del JSONObject di OpenWeather per restituire un vettore d'istanze della classe <code>Pressione</code>.
+     * @return <code>Vector<Pressione></code> - Vettore contenente le varie previsioni delle pressioni.
      * @throws java.io.IOException Eccezione relativo all'input/output.
      * @throws ParseException Eccezione relativa al parsing.
      */
@@ -51,9 +51,9 @@ public class ParserPressione extends Parser{
     }
 
     /**
-     * <b>Metodo statico</b> necessario per effettuare il parsing dei valori di tipo <code>long</code> all'interno del metodo {@link #leggiDati()}. Senza l'utilizzo di questo metodo il parsing porterebbe a una <code>ClassCastException</code>.
+     * <b>Metodo statico</b> necessario per effettuare il parsing dei valori di tipo <code>long</code> all'interno del metodo <code>leggiDati()</code>. Senza l'utilizzo di questo metodo il parsing porterebbe a una <code>ClassCastException</code>.
      * @param value Valore da controllare.
-     * @return Valore <code>value</code> prima castato a <code>Number</code>, poi a <code>long</code>.
+     * @return <code>long</code> - Valore <code>value</code> prima castato a <code>Number</code>, poi a <code>long</code>.
      */
     private static long longValue(Object value) {
         return (value instanceof Number ? ((Number)value).longValue() : -1);

@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * <b>Classe</b> contenente una data, sia nel suo formato "Epoch" che nel suo formato di stringa "leggibile".
@@ -19,7 +18,7 @@ public class Data {
     private String dataFormattata;
 
     /**
-     * <b>Costruttore</b> della classe <code>data</code>.
+     * <b>Costruttore</b> della classe <code>data</code>. Si occupa anche di trasformare la data in formato "Epoch" in una <code>LocalDateTime</code> di Java e di formattare tale data in una <code>String</code>.
      * @param dataEpoch data nel formato "Epoch".
      */
     public Data(long dataEpoch) {
@@ -48,7 +47,7 @@ public class Data {
 
     /**
      * <b>Getter</b> dell'attributo <code>data</code>.
-     * @return Date data.
+     * @return <code>LocalDateTime</code> data.
      */
     public LocalDateTime getDate() {
         return date;
@@ -56,7 +55,7 @@ public class Data {
     /**
      * <b>Setter</b> dell'attributo <code>data</code>.
      *
-     * @param date data (istanza della classe Date di Java).
+     * @param date data (istanza della classe <code>LocalDateTime</code> di Java).
      */
     public void setDate(LocalDateTime date) {
         this.date = date;
@@ -66,15 +65,4 @@ public class Data {
      * @return String dataFormattata.
      */
     public String getDataFormattata() { return dataFormattata; }
-    /**
-     * Override del metodo <code>toString</code>.
-     * @return String contenente la data nel suo formato "Epoch" e la data nel suo formato "leggibile".
-     */
-    @Override
-    public String toString() {
-        return "Data{" +
-                "dataEpoch=" + dataEpoch +
-                ", dataFormattata='" + dataFormattata + '\'' +
-                '}';
-    }
 }
