@@ -14,6 +14,7 @@ public class StatisticheTempPercepita implements StatisticheInterface{
             arrayTempPercepita[i] = vTempPercepita.get(i).getValorePercepito();
     }
 
+    @Override
     public double getMinimo (){
         double minimo = arrayTempPercepita[0];
         for (int i = 1; i < arrayTempPercepita.length; i++){
@@ -23,6 +24,7 @@ public class StatisticheTempPercepita implements StatisticheInterface{
         return minimo;
     }
 
+    @Override
     public double getMassimo (){
         double massimo = arrayTempPercepita[0];
         for (int i = 1; i < arrayTempPercepita.length; i++){
@@ -32,6 +34,7 @@ public class StatisticheTempPercepita implements StatisticheInterface{
         return massimo;
     }
 
+    @Override
     public double getMedia (){
         double somma = 0;
         for (double valore : arrayTempPercepita)
@@ -39,10 +42,11 @@ public class StatisticheTempPercepita implements StatisticheInterface{
         return somma/((double) arrayTempPercepita.length);
     }
 
+    @Override
     public double getVarianza (){
         double scartoQuadratico = 0;
-        for(int i = 0; i < arrayTempPercepita.length; i++)
-            scartoQuadratico += Math.pow((arrayTempPercepita[i] - getMedia()),2);
+        for (double v : arrayTempPercepita)
+            scartoQuadratico += Math.pow((v - getMedia()), 2);
         return scartoQuadratico/((double) arrayTempPercepita.length);
     }
 }

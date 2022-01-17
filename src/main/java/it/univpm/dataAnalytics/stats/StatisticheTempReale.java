@@ -14,6 +14,7 @@ public class StatisticheTempReale implements StatisticheInterface{
             arrayTempReale[i] = vTempReale.get(i).getValoreReale();
     }
 
+    @Override
     public double getMinimo (){
         double minimo = arrayTempReale[0];
         for (int i = 1; i < arrayTempReale.length; i++){
@@ -23,6 +24,7 @@ public class StatisticheTempReale implements StatisticheInterface{
         return minimo;
     }
 
+    @Override
     public double getMassimo (){
         double massimo = arrayTempReale[0];
         for (int i = 1; i < arrayTempReale.length; i++){
@@ -32,6 +34,7 @@ public class StatisticheTempReale implements StatisticheInterface{
         return massimo;
     }
 
+    @Override
     public double getMedia (){
         double somma = 0;
         for (double valore : arrayTempReale)
@@ -39,11 +42,12 @@ public class StatisticheTempReale implements StatisticheInterface{
         return somma/((double) arrayTempReale.length);
     }
 
+    @Override
     public double getVarianza (){
-    double scartoQuadratico = 0;
-    for(int i = 0; i < arrayTempReale.length; i++)
-        scartoQuadratico += Math.pow((arrayTempReale[i] - getMedia()),2);
-    return scartoQuadratico/((double) arrayTempReale.length);
+        double scartoQuadratico = 0;
+        for (double v : arrayTempReale)
+            scartoQuadratico += Math.pow((v - getMedia()), 2);
+        return scartoQuadratico/((double) arrayTempReale.length);
     }
 
 
