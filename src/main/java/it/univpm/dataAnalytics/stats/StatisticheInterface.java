@@ -2,13 +2,13 @@ package it.univpm.dataAnalytics.stats;
 
 public interface StatisticheInterface {
 
-    public abstract double getMinimo ();
+    double getMinimo ();
 
-    public abstract double getMassimo ();
+    double getMassimo ();
 
-    public abstract double getMedia ();
+    double getMedia ();
 
-    public abstract double getVarianza ();
+    double getVarianza ();
 
 
 }
