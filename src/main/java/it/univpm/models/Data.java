@@ -1,7 +1,10 @@
 package it.univpm.models;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * <b>Classe</b> contenente una data, sia nel suo formato "Epoch" che nel suo formato di stringa "leggibile".
@@ -12,7 +15,7 @@ import java.util.Date;
 public class Data {
 
     private long dataEpoch;
-    private Date date;
+    private LocalDateTime date;
     private String dataFormattata;
 
     /**
@@ -21,10 +24,11 @@ public class Data {
      */
     public Data(long dataEpoch) {
         this.dataEpoch = dataEpoch;
-        this.date = new Date(dataEpoch * 1000);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        this.dataFormattata = sdf.format(this.date);
+        this.date = LocalDateTime.ofInstant(Instant.ofEpochSecond(dataEpoch), ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm");
+        this.dataFormattata = date.format(formatter);
     }
+
 
     /**
      * <b>Getter</b> dell'attributo <code>dataEpoch</code>.
@@ -46,7 +50,7 @@ public class Data {
      * <b>Getter</b> dell'attributo <code>data</code>.
      * @return Date data.
      */
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
     /**
@@ -54,7 +58,7 @@ public class Data {
      *
      * @param date data (istanza della classe Date di Java).
      */
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
     /**
