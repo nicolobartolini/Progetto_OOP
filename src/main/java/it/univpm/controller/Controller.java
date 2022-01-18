@@ -7,6 +7,7 @@ import it.univpm.dataAnalytics.stats.StatisticheStoricoPressione;
 import it.univpm.dataAnalytics.stats.StatisticheTempPercepita;
 import it.univpm.dataAnalytics.stats.StatisticheTempReale;
 import it.univpm.exceptions.InvalidFilterTypeException;
+import it.univpm.exceptions.InvalidPeriodException;
 import it.univpm.exceptions.InvalidStatsTypeException;
 import it.univpm.exceptions.InvalidTempTypeException;
 import it.univpm.models.Citta;
@@ -113,7 +114,7 @@ public class Controller {
                                  @RequestParam(name = "nation", defaultValue = "IT") String nazione,
                                  @PathVariable int day, @PathVariable int month, @PathVariable int year,
                                  @PathVariable Optional<Integer> end_hour, @PathVariable Optional<Integer> start_hour,
-                                 @PathVariable String tipoFiltro, @PathVariable String tipoTemp) throws IOException, ParseException, InvalidTempTypeException, InvalidFilterTypeException {
+                                 @PathVariable String tipoFiltro, @PathVariable String tipoTemp) throws IOException, ParseException, InvalidTempTypeException, InvalidFilterTypeException, InvalidPeriodException {
         FiltriTemp filtri;
         int start_hour_value = 0;
         int end_hour_value = 0;

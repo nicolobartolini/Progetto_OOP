@@ -1,5 +1,7 @@
 package it.univpm.dataAnalytics.filters;
 
+import it.univpm.exceptions.InvalidPeriodException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -10,19 +12,19 @@ import java.time.LocalDateTime;
  */
 public interface FiltriInterface {
 
-    double getMinimoGiornaliero(LocalDateTime giorno);
+    double getMinimoGiornaliero(LocalDateTime giorno) throws InvalidPeriodException;
 
-    double getMassimoGiornaliero(LocalDateTime giorno);
+    double getMassimoGiornaliero(LocalDateTime giorno) throws InvalidPeriodException;
 
-    double getMediaGiornaliera(LocalDateTime giorno);
+    double getMediaGiornaliera(LocalDateTime giorno) throws InvalidPeriodException;
 
-    double getVarianzaGiornaliera(LocalDateTime giorno);
+    double getVarianzaGiornaliera(LocalDateTime giorno) throws InvalidPeriodException;
 
-    double getMinimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale);
+    double getMinimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException;
 
-    double getMassimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale);
+    double getMassimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException;
 
-    double getMediaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale);
+    double getMediaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException;
 
-    double getVarianzaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale);
+    double getVarianzaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException;
 }
