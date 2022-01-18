@@ -29,7 +29,7 @@ public class ParserPressione extends Parser {
     /**
      * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati</code>. Effettua il parsing del JSONObject di OpenWeather per restituire un vettore d'istanze della classe <code>Pressione</code>.
      *
-     * @return <code>Vector<Pressione></code> - Vettore contenente le varie previsioni delle pressioni.
+     * @return <code>Vector</code> - Vettore contenente le varie previsioni delle pressioni.
      * @throws IOException    Eccezione relativo all'input/output.
      * @throws ParseException Eccezione relativa al parsing.
      */

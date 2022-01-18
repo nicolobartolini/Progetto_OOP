@@ -23,10 +23,12 @@ public class Citta {
     /**
      * <b>Costruttore</b> della classe <code>Citta</code>.
      *
-     * @param id      <b>Codice identificativo</b> della citta'.
-     * @param nome    <b>Nome</b> della citta'.
-     * @param nazione <b>Nazione</b> in cui la citta' si trova.
-     * @param coord   <b>Coordinate</b> della citta' date da longitudine e latitudine.
+     * @param id          <b>Codice identificativo</b> della citta'.
+     * @param nome        <b>Nome</b> della citta'.
+     * @param nazione     <b>Nazione</b> in cui la citta' si trova.
+     * @param coord       <b>Coordinate</b> della citta' date da longitudine e latitudine.
+     * @param pressioni   Lista delle previsioni della <b>pressione</b> relative alla citta'.
+     * @param temperature Lista delle previsioni della <b>temperatura</b> relative alla citta'.
      */
     public Citta(long id, String nome, String nazione, Coordinate coord, Vector<Pressione> pressioni, Vector<Temperatura> temperature) {
         this.id = id;
@@ -129,7 +131,7 @@ public class Citta {
     /**
      * <b>Getter</b> dell'attributo <code>pressioni</code>.
      *
-     * @return Vector<Pressione> pressioni
+     * @return Vector pressioni
      */
     public Vector<Pressione> getPressioni() {
         return pressioni;
@@ -147,7 +149,7 @@ public class Citta {
     /**
      * <b>Getter</b> dell'attributo <code>temperature</code>.
      *
-     * @return Vector<Temperatura> temperature
+     * @return Vector temperature
      */
     public Vector<Temperatura> getTemperatura() {
         return temperature;

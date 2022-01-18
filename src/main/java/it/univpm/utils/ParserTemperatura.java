@@ -29,7 +29,7 @@ public class ParserTemperatura extends Parser {
     /**
      * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati()</code>. Effettua il parsing del JSONObject di OpenWeather per restituire un vettore d'istanze della classe <code>Temperatura</code>.
      *
-     * @return <code>Vector<Temperatura></code> - Vettore contenente le varie previsioni delle temperature.
+     * @return <code>Vector</code> - Vettore contenente le varie previsioni delle temperature.
      * @throws IOException    Eccezione relativa all'input/output.
      * @throws ParseException Eccezione relativa al parsing.
      */

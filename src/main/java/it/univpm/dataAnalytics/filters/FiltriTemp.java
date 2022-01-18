@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
  */
 public class FiltriTemp {
 
+    /**
+     * Attributo <code>Citta</code> utilizzato nelle sottoclassi.
+     */
     protected Citta citta;
 
 
