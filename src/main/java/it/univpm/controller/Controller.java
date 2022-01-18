@@ -6,6 +6,9 @@ import it.univpm.dataAnalytics.filters.FiltriTempReale;
 import it.univpm.dataAnalytics.stats.StatisticheStoricoPressione;
 import it.univpm.dataAnalytics.stats.StatisticheTempPercepita;
 import it.univpm.dataAnalytics.stats.StatisticheTempReale;
+import it.univpm.exceptions.InvalidFilterTypeException;
+import it.univpm.exceptions.InvalidStatsTypeException;
+import it.univpm.exceptions.InvalidTempTypeException;
 import it.univpm.models.Citta;
 import it.univpm.models.Temperatura;
 import it.univpm.services.ChiamataService;
@@ -109,7 +112,8 @@ public class Controller {
     public JSONObject filtraTemp(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
                                  @RequestParam(name = "nation", defaultValue = "IT") String nazione,
                                  @PathVariable int day, @PathVariable int month, @PathVariable int year,
-                                 @PathVariable Optional<Integer> end_hour, @PathVariable Optional<Integer> start_hour, @PathVariable String tipoFiltro, @PathVariable String tipoTemp) throws IOException, ParseException {
+                                 @PathVariable Optional<Integer> end_hour, @PathVariable Optional<Integer> start_hour,
+                                 @PathVariable String tipoFiltro, @PathVariable String tipoTemp) throws IOException, ParseException, InvalidTempTypeException, InvalidFilterTypeException {
         FiltriTemp filtri;
         int start_hour_value = 0;
         int end_hour_value = 0;
@@ -117,8 +121,8 @@ public class Controller {
             start_hour_value = start_hour.get();
         if (end_hour.isPresent())
             end_hour_value = end_hour.get();
-        if (tipoTemp.equalsIgnoreCase("reali") || tipoTemp.equalsIgnoreCase("reale")) {
-            if (tipoFiltro.equalsIgnoreCase("giornaliero") || tipoFiltro.equalsIgnoreCase("giorno")) {
+        if (tipoTemp.equalsIgnoreCase("reale")) {
+            if (tipoFiltro.equalsIgnoreCase("giornaliero")) {
                 LocalDateTime giorno = LocalDateTime.of(year, month, day, 0, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
                 Citta citta = parser.leggiDati();
@@ -142,7 +146,7 @@ public class Controller {
                 risultato.put("periodo_filtro", periodo);
                 return risultato;
             }
-            else if (tipoFiltro.equalsIgnoreCase("fasciaoraria") || tipoFiltro.equalsIgnoreCase("fascia") || tipoFiltro.equalsIgnoreCase("orario")) {
+            else if (tipoFiltro.equalsIgnoreCase("fasciaoraria")) {
                 LocalDateTime oraIniziale = LocalDateTime.of(year, month, day, start_hour_value, 0, 0);
                 LocalDateTime oraFinale = LocalDateTime.of(year, month, day, end_hour_value, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
@@ -171,9 +175,10 @@ public class Controller {
                 risultato.put("risultato_filtraggio", valoriFiltrati);
                 return risultato;
             }
+            else throw new InvalidFilterTypeException();
         }
-        else if (tipoTemp.equalsIgnoreCase("percepite") || tipoTemp.equalsIgnoreCase("percepita")) {
-            if (tipoFiltro.equalsIgnoreCase("giornaliero") || tipoFiltro.equalsIgnoreCase("giorno")) {
+        else if (tipoTemp.equalsIgnoreCase("percepita")) {
+            if (tipoFiltro.equalsIgnoreCase("giornaliero")) {
                 LocalDateTime giorno = LocalDateTime.of(year, month, day, 0, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
                 Citta citta = parser.leggiDati();
@@ -197,7 +202,7 @@ public class Controller {
                 risultato.put("periodo_filtro", periodo);
                 return risultato;
             }
-            else if (tipoFiltro.equalsIgnoreCase("fasciaoraria") || tipoFiltro.equalsIgnoreCase("fascia") || tipoFiltro.equalsIgnoreCase("orario")) {
+            else if (tipoFiltro.equalsIgnoreCase("fasciaoraria")) {
                 LocalDateTime oraIniziale = LocalDateTime.of(year, month, day, start_hour_value, 0, 0);
                 LocalDateTime oraFinale = LocalDateTime.of(year, month, day, end_hour_value, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
@@ -226,11 +231,9 @@ public class Controller {
                 risultato.put("risultato_filtraggio", valoriFiltrati);
                 return risultato;
             }
-            else ;
-                //TODO eccezioni
-
+            else throw new InvalidFilterTypeException();
         }
-        return new JSONObject();
+        else throw new InvalidTempTypeException();
     }
 
     /**
@@ -247,9 +250,9 @@ public class Controller {
     @ResponseBody
     public JSONObject getStatistiche(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
                                      @RequestParam(name = "nation", defaultValue = "IT") String nazione,
-                                     @PathVariable String tipoDato) throws IOException, ParseException {
+                                     @PathVariable String tipoDato) throws IOException, ParseException, InvalidStatsTypeException {
 
-        if (tipoDato.equalsIgnoreCase("pressione") || tipoDato.equalsIgnoreCase("pressioni")) {
+        if (tipoDato.equalsIgnoreCase("pressione")) {
             JSONParser parser = new JSONParser();
             Object o = parser.parse(new FileReader(GestioneFile.creaPercorso(nomeCitta, nazione)));
             JSONArray storico = (JSONArray) o;
@@ -271,8 +274,7 @@ public class Controller {
             risultato.put("città", identificatoreCitta);
             return risultato;
         }
-        else if (tipoDato.equalsIgnoreCase("temperaturaReale") ||
-                 tipoDato.equalsIgnoreCase("temperatureReali")) {
+        else if (tipoDato.equalsIgnoreCase("temperaturaReale")) {
             ParserTemperatura parser = new ParserTemperatura(nomeCitta, nazione);
             Vector<Temperatura> temperature = parser.leggiDati();
             StatisticheTempReale stat = new StatisticheTempReale(temperature);
@@ -293,8 +295,7 @@ public class Controller {
             risultato.put("città", identificatoreCitta);
             return risultato;
         }
-        else if (tipoDato.equalsIgnoreCase("temperaturaPercepita") ||
-                tipoDato.equalsIgnoreCase("temperaturePercepite")) {
+        else if (tipoDato.equalsIgnoreCase("temperaturaPercepita")) {
             ParserTemperatura parser = new ParserTemperatura(nomeCitta, nazione);
             Vector<Temperatura> temperature = parser.leggiDati();
             StatisticheTempPercepita stat = new StatisticheTempPercepita(temperature);
@@ -315,10 +316,6 @@ public class Controller {
             risultato.put("città", identificatoreCitta);
             return risultato;
         }
-        else {
-            // TODO eccezioni
-
-        }
-        return new JSONObject();
+        else throw new InvalidStatsTypeException();
     }
 }
