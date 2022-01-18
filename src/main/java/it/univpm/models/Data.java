@@ -28,6 +28,14 @@ public class Data {
         this.dataFormattata = date.format(formatter);
     }
 
+    /**
+     * <b>Costruttore</b> della classe <code>Data</code> necessario per i test.
+     * @param data Data in <code>LocalDateTime</code>.
+     */
+    public Data(LocalDateTime data) {
+        this.date = data;
+    }
+
 
     /**
      * <b>Getter</b> dell'attributo <code>dataEpoch</code>.

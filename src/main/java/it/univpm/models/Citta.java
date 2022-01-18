@@ -41,6 +41,20 @@ public class Citta {
     }
 
     /**
+     * <b>Costruttore</b> della classe <code>Citta</code> necessario per i test.
+     * @param nome <b>Nome</b> della citta'.
+     * @param nazione <b>Nazione</b> in cui la citta' si trova.
+     * @param primaOccorrenzaValori Prima data.
+     * @param ultimaOccorrenzaValori Ultima data.
+     */
+    public Citta(String nome, String nazione, Data primaOccorrenzaValori, Data ultimaOccorrenzaValori) {
+        this.nome = nome;
+        this.nazione = nazione;
+        this.primaOccorrenzaValori = primaOccorrenzaValori;
+        this.ultimaOccorrenzaValori = ultimaOccorrenzaValori;
+    }
+
+    /**
      * <b>Getter</b> dell'attributo <code>id</code>.
      * @return long id
      */

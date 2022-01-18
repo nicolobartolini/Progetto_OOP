@@ -25,6 +25,14 @@ public class StatisticheTempReale implements StatisticheInterface{
             arrayTempReale[i] = vTempReale.get(i).getValoreReale();
     }
 
+    /**
+     * <b>Costruttore</b> della classe <code>StatisticheTempReale</code> necessario per i test.
+     * @param arrayTempReale Vettore di <code>double</code>.
+     */
+    public StatisticheTempReale (double[] arrayTempReale) {
+        this.arrayTempReale = arrayTempReale;
+    }
+
     @Override
     public double getMinimo (){
         double minimo = arrayTempReale[0];
@@ -50,7 +58,7 @@ public class StatisticheTempReale implements StatisticheInterface{
         double somma = 0;
         for (double valore : arrayTempReale)
             somma += valore;
-        return somma/((double) arrayTempReale.length);
+        return Math.round((somma/((double) arrayTempReale.length))* 100.0) / 100.0;
     }
 
     @Override
@@ -58,10 +66,6 @@ public class StatisticheTempReale implements StatisticheInterface{
         double scartoQuadratico = 0;
         for (double v : arrayTempReale)
             scartoQuadratico += Math.pow((v - getMedia()), 2);
-        return scartoQuadratico/((double) arrayTempReale.length);
+        return Math.round((scartoQuadratico/((double) arrayTempReale.length)) * 100.0) / 100.0;
     }
-
-
-
-
 }
