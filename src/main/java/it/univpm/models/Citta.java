@@ -23,13 +23,12 @@ public class Citta {
     /**
      * <b>Costruttore</b> della classe <code>Citta</code>.
      *
-     * @param id <b>Codice identificativo</b> della citta'.
-     * @param nome <b>Nome</b> della citta'.
+     * @param id      <b>Codice identificativo</b> della citta'.
+     * @param nome    <b>Nome</b> della citta'.
      * @param nazione <b>Nazione</b> in cui la citta' si trova.
-     * @param coord <b>Coordinate</b> della citta' date da longitudine e latitudine.
-     *
+     * @param coord   <b>Coordinate</b> della citta' date da longitudine e latitudine.
      */
-    public Citta(long id, String nome, String nazione, Coordinate coord, Vector<Pressione> pressioni, Vector<Temperatura> temperature){
+    public Citta(long id, String nome, String nazione, Coordinate coord, Vector<Pressione> pressioni, Vector<Temperatura> temperature) {
         this.id = id;
         this.nome = nome;
         this.nazione = nazione;
@@ -42,9 +41,10 @@ public class Citta {
 
     /**
      * <b>Costruttore</b> della classe <code>Citta</code> necessario per i test.
-     * @param nome <b>Nome</b> della citta'.
-     * @param nazione <b>Nazione</b> in cui la citta' si trova.
-     * @param primaOccorrenzaValori Prima data.
+     *
+     * @param nome                   <b>Nome</b> della citta'.
+     * @param nazione                <b>Nazione</b> in cui la citta' si trova.
+     * @param primaOccorrenzaValori  Prima data.
      * @param ultimaOccorrenzaValori Ultima data.
      */
     public Citta(String nome, String nazione, Data primaOccorrenzaValori, Data ultimaOccorrenzaValori) {
@@ -56,13 +56,16 @@ public class Citta {
 
     /**
      * <b>Getter</b> dell'attributo <code>id</code>.
+     *
      * @return long id
      */
     public long getId() {
         return id;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>id</code>
+     *
      * @param id Codice identificativo della citta'.
      */
     public void setId(long id) {
@@ -71,13 +74,16 @@ public class Citta {
 
     /**
      * <b>Getter</b> dell'attributo <code>nome</code>.
+     *
      * @return String nome
      */
     public String getNome() {
         return nome;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>nome</code>
+     *
      * @param nome Nome della citta'.
      */
     public void setNome(String nome) {
@@ -86,13 +92,16 @@ public class Citta {
 
     /**
      * <b>Getter</b> dell'attributo <code>nazione</code>.
+     *
      * @return String nazione
      */
     public String getNazione() {
         return nazione;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>nazione</code>
+     *
      * @param nazione Nazione in cui la citta' si trova.
      */
     public void setNazione(String nazione) {
@@ -101,13 +110,16 @@ public class Citta {
 
     /**
      * <b>Getter</b> dell'attributo <code>coord</code>.
+     *
      * @return Coordinate coord
      */
     public Coordinate getCoord() {
         return coord;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>coord</code>
+     *
      * @param coord Coordinate della citta' date da longitudine e latitudine.
      */
     public void setCoord(Coordinate coord) {
@@ -116,13 +128,16 @@ public class Citta {
 
     /**
      * <b>Getter</b> dell'attributo <code>pressioni</code>.
+     *
      * @return Vector<Pressione> pressioni
      */
     public Vector<Pressione> getPressioni() {
         return pressioni;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>pressioni</code>
+     *
      * @param pressioni Vettore contenente i dati relativi alle pressioni.
      */
     public void setPressioni(Vector<Pressione> pressioni) {
@@ -131,13 +146,16 @@ public class Citta {
 
     /**
      * <b>Getter</b> dell'attributo <code>temperature</code>.
+     *
      * @return Vector<Temperatura> temperature
      */
     public Vector<Temperatura> getTemperatura() {
         return temperature;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>temperature</code>
+     *
      * @param temperature Vettore contenente i dati relativi alle temperature.
      */
     public void setTemperatura(Vector<Temperatura> temperature) {
@@ -152,6 +170,7 @@ public class Citta {
     public Data getPrimaOccorrenzaValori() {
         return this.primaOccorrenzaValori;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>primaOccorrenzaValori</code>.
      *
@@ -169,6 +188,7 @@ public class Citta {
     public Data getUltimaOccorrenzaValori() {
         return this.ultimaOccorrenzaValori;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>ultimaOccorrenzaValori</code>.
      *

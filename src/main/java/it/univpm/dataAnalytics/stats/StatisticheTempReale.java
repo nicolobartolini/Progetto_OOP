@@ -10,7 +10,7 @@ import java.util.Vector;
  * @author nicolobartolini
  * @author riccardopostacchini
  */
-public class StatisticheTempReale implements StatisticheInterface{
+public class StatisticheTempReale implements StatisticheInterface {
 
     private double[] arrayTempReale;
 
@@ -19,7 +19,7 @@ public class StatisticheTempReale implements StatisticheInterface{
      *
      * @param vTempReale Vettore contenente i valori delle temperature.
      */
-    public StatisticheTempReale (Vector<Temperatura> vTempReale){
+    public StatisticheTempReale(Vector<Temperatura> vTempReale) {
         arrayTempReale = new double[vTempReale.size()];
         for (int i = 0; i < vTempReale.size(); i++)
             arrayTempReale[i] = vTempReale.get(i).getValoreReale();
@@ -27,21 +27,22 @@ public class StatisticheTempReale implements StatisticheInterface{
 
     /**
      * <b>Costruttore</b> della classe <code>StatisticheTempReale</code> necessario per i test.
+     *
      * @param arrayTempReale Vettore di <code>double</code>.
      */
-    public StatisticheTempReale (double[] arrayTempReale) {
+    public StatisticheTempReale(double[] arrayTempReale) {
         this.arrayTempReale = arrayTempReale;
     }
 
     @Override
-    public double getMinimo (){
+    public double getMinimo() {
         double minimo;
         try {
             minimo = arrayTempReale[0];
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        for (int i = 1; i < arrayTempReale.length; i++){
+        for (int i = 1; i < arrayTempReale.length; i++) {
             if (arrayTempReale[i] < minimo)
                 minimo = arrayTempReale[i];
         }
@@ -49,14 +50,14 @@ public class StatisticheTempReale implements StatisticheInterface{
     }
 
     @Override
-    public double getMassimo (){
+    public double getMassimo() {
         double massimo;
         try {
             massimo = arrayTempReale[0];
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        for (int i = 1; i < arrayTempReale.length; i++){
+        for (int i = 1; i < arrayTempReale.length; i++) {
             if (arrayTempReale[i] > massimo)
                 massimo = arrayTempReale[i];
         }
@@ -64,7 +65,7 @@ public class StatisticheTempReale implements StatisticheInterface{
     }
 
     @Override
-    public double getMedia (){
+    public double getMedia() {
         double somma = 0;
         try {
             for (double valore : arrayTempReale)
@@ -72,11 +73,11 @@ public class StatisticheTempReale implements StatisticheInterface{
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        return Math.round((somma/((double) arrayTempReale.length))* 100.0) / 100.0;
+        return Math.round((somma / ((double) arrayTempReale.length)) * 100.0) / 100.0;
     }
 
     @Override
-    public double getVarianza (){
+    public double getVarianza() {
         double scartoQuadratico = 0;
         try {
             for (double v : arrayTempReale)
@@ -84,6 +85,6 @@ public class StatisticheTempReale implements StatisticheInterface{
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        return Math.round((scartoQuadratico/((double) arrayTempReale.length)) * 100.0) / 100.0;
+        return Math.round((scartoQuadratico / ((double) arrayTempReale.length)) * 100.0) / 100.0;
     }
 }

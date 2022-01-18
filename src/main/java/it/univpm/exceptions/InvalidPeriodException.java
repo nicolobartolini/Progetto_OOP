@@ -5,7 +5,6 @@ package it.univpm.exceptions;
  *
  * @author nicolobartolini
  * @author riccardopostacchini
- *
  */
 public class InvalidPeriodException extends Exception {
 

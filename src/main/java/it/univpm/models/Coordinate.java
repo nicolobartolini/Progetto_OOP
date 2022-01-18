@@ -14,7 +14,7 @@ public class Coordinate {
     /**
      * <b>Costruttore</b> della classe <code>Coordinate</code>.
      *
-     * @param latitudine <i>Latitudine</i> della citta'.
+     * @param latitudine  <i>Latitudine</i> della citta'.
      * @param longitudine <i>Longitudine</i> della citta'.
      */
     public Coordinate(double latitudine, double longitudine) {
@@ -24,6 +24,7 @@ public class Coordinate {
 
     /**
      * <b>Getter</b> dell'attributo <code>latitudine</code>.
+     *
      * @return double latitudine
      */
     public double getLatitude() {
@@ -32,6 +33,7 @@ public class Coordinate {
 
     /**
      * <b>Setter</b> dell'attributo <code>latitudine</code>.
+     *
      * @param latitudine <i>Latitudine</i> della citta'.
      */
     public void setLatitude(double latitudine) {
@@ -40,13 +42,16 @@ public class Coordinate {
 
     /**
      * <b>Getter</b> dell'attributo <code>longitudine</code>.
+     *
      * @return double longitudine
      */
     public double getLongitude() {
         return longitudine;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>longitudine</code>.
+     *
      * @param longitudine <i>Longitudine</i> della citta'.
      */
     public void setLongitude(double longitudine) {

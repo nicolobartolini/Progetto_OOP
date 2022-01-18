@@ -14,12 +14,13 @@ import java.util.Vector;
  * @author riccardopostacchini
  * @author nicolobartolini
  */
-public class ParserPressione extends Parser{
+public class ParserPressione extends Parser {
 
     /**
      * <b>Costruttore</b> della classe <code>ParserPressione</code>. Richiama il costruttore della superclasse.
+     *
      * @param nomeCitta <b>Nome</b> della città.
-     * @param nazione <b>Nazione</b> a cui appartiene la città.
+     * @param nazione   <b>Nazione</b> a cui appartiene la città.
      */
     public ParserPressione(String nomeCitta, String nazione) {
         super(nomeCitta, nazione);
@@ -27,8 +28,9 @@ public class ParserPressione extends Parser{
 
     /**
      * <i>Implementazione</i> del <b>metodo astratto</b> <code>leggiDati</code>. Effettua il parsing del JSONObject di OpenWeather per restituire un vettore d'istanze della classe <code>Pressione</code>.
+     *
      * @return <code>Vector<Pressione></code> - Vettore contenente le varie previsioni delle pressioni.
-     * @throws java.io.IOException Eccezione relativo all'input/output.
+     * @throws IOException    Eccezione relativo all'input/output.
      * @throws ParseException Eccezione relativa al parsing.
      */
     public Vector<Pressione> leggiDati() throws IOException, ParseException {
@@ -52,10 +54,11 @@ public class ParserPressione extends Parser{
 
     /**
      * <b>Metodo statico</b> necessario per effettuare il parsing dei valori di tipo <code>long</code> all'interno del metodo <code>leggiDati()</code>. Senza l'utilizzo di questo metodo il parsing porterebbe a una <code>ClassCastException</code>.
+     *
      * @param value Valore da controllare.
      * @return <code>long</code> - Valore <code>value</code> prima castato a <code>Number</code>, poi a <code>long</code>.
      */
     private static long longValue(Object value) {
-        return (value instanceof Number ? ((Number)value).longValue() : -1);
+        return (value instanceof Number ? ((Number) value).longValue() : -1);
     }
 }

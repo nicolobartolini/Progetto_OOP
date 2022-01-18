@@ -40,18 +40,18 @@ public class Controller {
      * Rotta che, data una citta', restituisce tutte le previsioni relative alle pressioni e alle temperature per i prossimi 5 giorni.
      *
      * @param nomeCitta <b>Nome</b> della citta'.
-     * @param nazione <b>Nazione</b> della citta'.
+     * @param nazione   <b>Nazione</b> della citta'.
      * @return <code>JSONObject</code> - JSONObject contenente le informazioni sulle pressioni, sulle temperature e sulla citta'.
      */
     @GetMapping("/getGeneral")
     @ResponseBody
-    public JSONObject getAllPressTemp(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
+    public JSONObject getAllPressTemp(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
                                       @RequestParam(name = "nation", defaultValue = "IT") String nazione) {
         ChiamataService service = new ChiamataService(nomeCitta, nazione);
         JSONObject risultato = new JSONObject();
         try {
             risultato = service.elaboraChiamata();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             risultato.put("errore", 404);
             risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
             risultato.put("errore_in", "/getGeneral");
@@ -60,23 +60,24 @@ public class Controller {
         }
         return risultato;
     }
+
     /**
      * Rotta che, data una citta', restituisce tutte le previsioni relative alle pressioni per i prossimi 5 giorni.
      *
      * @param nomeCitta <b>Nome</b> della citta'.
-     * @param nazione <b>Nazione</b> della citta'.
+     * @param nazione   <b>Nazione</b> della citta'.
      * @return <code>JSONObject</code> - JSONObject contenente le previsioni sulle pressioni.
      */
     @GetMapping("/getPressioni")
     @ResponseBody
-    public JSONObject getPressioni(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
+    public JSONObject getPressioni(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
                                    @RequestParam(name = "nation", defaultValue = "IT") String nazione) {
         ChiamataService service = new ChiamataService(nomeCitta, nazione);
         JSONObject risultato = new JSONObject();
         try {
             risultato = service.elaboraChiamata();
             risultato.remove("temperature");
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             risultato.put("errore", 404);
             risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
             risultato.put("errore_in", "/getPressioni");
@@ -85,20 +86,22 @@ public class Controller {
         }
         return risultato;
     }
+
     /**
      * Rotta che esegue il metodo di accumulo dati sulla pressione e restituisce una stringa informativa sul percorso del file salvato.
      *
      * @param nomeCitta <b>Nome</b> della citta'.
-     * @param nazione <b>Nazione</b> della citta'.
+     * @param nazione   <b>Nazione</b> della citta'.
      * @return <code>String</code> - Stringa informativa sul percorso del file salvato.
      */
     @GetMapping("/stampaFileJSON")
     @ResponseBody
-    public String stampaFileJSON(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
+    public String stampaFileJSON(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
                                  @RequestParam(name = "nation", defaultValue = "IT") String nazione) {
         GestioneFile.aggiornaFileJSON(nomeCitta, nazione);
         return "Il file è stato salvato in: " + GestioneFile.creaPercorso(nomeCitta, nazione);
     }
+
     /**
      * Rotta che si occupa del filtraggio delle statistiche relative alla temperatura.
      *
@@ -112,8 +115,11 @@ public class Controller {
      * @param tipoFiltro Tipo di filtraggio: giornaliero o a fascia oraria.
      * @param tipoTemp   Tipo di temperatura: reale o percepita.
      * @return <code>JSONObject</code> - JSONObject contenente il risultato dei filtri richiesti.
-     * @throws IOException Eccezione relativa all'input/output.
-     * @throws ParseException Eccezione relativa al parsing.
+     * @throws IOException                Eccezione relativa all'input/output.
+     * @throws ParseException             Eccezione relativa al parsing.
+     * @throws InvalidTempTypeException   Eccezione relativa a un errato tipo di temperatura richiesto.
+     * @throws InvalidFilterTypeException Eccezione relativa a un errato tipo di filtraggio richiesto.
+     * @throws InvalidPeriodException     Eccezione relativa a un errore nel periodo immesso.
      */
     @GetMapping({"/filtriTemperature/{tipoTemp}/{tipoFiltro}/{year}/{month}/{day}/{start_hour}/{end_hour}", "/filtriTemperature/{tipoTemp}/{tipoFiltro}/{year}/{month}/{day}"})
     @ResponseBody
@@ -141,7 +147,7 @@ public class Controller {
                     citta = parser.leggiDati();
                 } catch (FileNotFoundException e) {
                     risultato.put("errore", 404);
-                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
                     risultato.put("errore_in", "filtriTemperature/reale/giornaliero");
                     return risultato;
                 }
@@ -163,8 +169,7 @@ public class Controller {
                 risultato.put("città", identificatoreCitta);
                 risultato.put("periodo_filtro", periodo);
                 return risultato;
-            }
-            else if (tipoFiltro.equalsIgnoreCase("fasciaoraria")) {
+            } else if (tipoFiltro.equalsIgnoreCase("fasciaoraria")) {
                 LocalDateTime oraIniziale = LocalDateTime.of(year, month, day, start_hour_value, 0, 0);
                 LocalDateTime oraFinale = LocalDateTime.of(year, month, day, end_hour_value, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
@@ -174,7 +179,7 @@ public class Controller {
                     citta = parser.leggiDati();
                 } catch (FileNotFoundException e) {
                     risultato.put("errore", 404);
-                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
                     risultato.put("errore_in", "filtriTemperature/reale/fasciaOraria");
                     return risultato;
                 }
@@ -200,10 +205,8 @@ public class Controller {
                 risultato.put("città", identificatoreCitta);
                 risultato.put("risultato_filtraggio", valoriFiltrati);
                 return risultato;
-            }
-            else throw new InvalidFilterTypeException();
-        }
-        else if (tipoTemp.equalsIgnoreCase("percepita")) {
+            } else throw new InvalidFilterTypeException();
+        } else if (tipoTemp.equalsIgnoreCase("percepita")) {
             if (tipoFiltro.equalsIgnoreCase("giornaliero")) {
                 LocalDateTime giorno = LocalDateTime.of(year, month, day, 0, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
@@ -213,7 +216,7 @@ public class Controller {
                     citta = parser.leggiDati();
                 } catch (FileNotFoundException e) {
                     risultato.put("errore", 404);
-                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
                     risultato.put("errore_in", "filtriTemperature/percepita/giornaliero");
                     return risultato;
                 }
@@ -235,8 +238,7 @@ public class Controller {
                 risultato.put("città", identificatoreCitta);
                 risultato.put("periodo_filtro", periodo);
                 return risultato;
-            }
-            else if (tipoFiltro.equalsIgnoreCase("fasciaoraria")) {
+            } else if (tipoFiltro.equalsIgnoreCase("fasciaoraria")) {
                 LocalDateTime oraIniziale = LocalDateTime.of(year, month, day, start_hour_value, 0, 0);
                 LocalDateTime oraFinale = LocalDateTime.of(year, month, day, end_hour_value, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
@@ -246,7 +248,7 @@ public class Controller {
                     citta = parser.leggiDati();
                 } catch (FileNotFoundException e) {
                     risultato.put("errore", 404);
-                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
                     risultato.put("errore_in", "filtriTemperature/percepita/fasciaOraria");
                     return risultato;
                 }
@@ -272,20 +274,20 @@ public class Controller {
                 risultato.put("città", identificatoreCitta);
                 risultato.put("risultato_filtraggio", valoriFiltrati);
                 return risultato;
-            }
-            else throw new InvalidFilterTypeException();
-        }
-        else throw new InvalidTempTypeException();
+            } else throw new InvalidFilterTypeException();
+        } else throw new InvalidTempTypeException();
     }
+
     /**
      * Rotta che si occupa delle statistiche sull'intero intervallo di 5 giorni relative alla temperatura oppure allo storico delle pressioni.
      *
-     * @param nomeCitta  <b>Nome</b> della citta'.
-     * @param nazione    <b>Nazione</b> della citta'.
-     * @param tipoDato   Tipo di dato del quale si vogliono ottenere le statistiche: pressione, temperature reale o temperatura percepita.
+     * @param nomeCitta <b>Nome</b> della citta'.
+     * @param nazione   <b>Nazione</b> della citta'.
+     * @param tipoDato  Tipo di dato del quale si vogliono ottenere le statistiche: pressione, temperature reale o temperatura percepita.
      * @return <code>JSONObject</code> - JSONObject contenente i dati richiesti.
-     * @throws IOException Eccezione relativa all'input/output.
-     * @throws ParseException Eccezione relativa al parsing.
+     * @throws IOException               Eccezione relativa all'input/output.
+     * @throws ParseException            Eccezione relativa al parsing.
+     * @throws InvalidStatsTypeException Eccezione relativa a un errato tipo di dato richiesto per la statistica.
      */
     @GetMapping(value = "/stats/{tipoDato}")
     @ResponseBody
@@ -300,7 +302,7 @@ public class Controller {
                 o = parser.parse(new FileReader(GestioneFile.creaPercorso(nomeCitta, nazione)));
             } catch (FileNotFoundException e) {
                 risultato.put("errore", 404);
-                risultato.put("descrizione", "[" + GestioneFile.creaPercorso(nomeCitta, nazione) +"] Il file non c'è.");
+                risultato.put("descrizione", "[" + GestioneFile.creaPercorso(nomeCitta, nazione) + "] Il file non c'è.");
                 risultato.put("errore_in", "stats/pressione");
                 return risultato;
             }
@@ -321,8 +323,7 @@ public class Controller {
             risultato.put("statistiche", statistiche);
             risultato.put("città", identificatoreCitta);
             return risultato;
-        }
-        else if (tipoDato.equalsIgnoreCase("temperaturaReale")) {
+        } else if (tipoDato.equalsIgnoreCase("temperaturaReale")) {
             ParserTemperatura parser = new ParserTemperatura(nomeCitta, nazione);
             JSONObject risultato = new JSONObject();
             Vector<Temperatura> temperature;
@@ -332,7 +333,7 @@ public class Controller {
                 stat = new StatisticheTempReale(temperature);
             } catch (FileNotFoundException e) {
                 risultato.put("errore", 404);
-                risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
                 risultato.put("errore_in", "stats/temperaturaReale");
                 return risultato;
             }
@@ -351,8 +352,7 @@ public class Controller {
             risultato.put("statistiche", statistiche);
             risultato.put("città", identificatoreCitta);
             return risultato;
-        }
-        else if (tipoDato.equalsIgnoreCase("temperaturaPercepita")) {
+        } else if (tipoDato.equalsIgnoreCase("temperaturaPercepita")) {
             ParserTemperatura parser = new ParserTemperatura(nomeCitta, nazione);
             JSONObject risultato = new JSONObject();
             Vector<Temperatura> temperature;
@@ -362,7 +362,7 @@ public class Controller {
                 stat = new StatisticheTempReale(temperature);
             } catch (FileNotFoundException e) {
                 risultato.put("errore", 404);
-                risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
                 risultato.put("errore_in", "stats/temperaturaPercepita");
                 return risultato;
             }
@@ -381,7 +381,6 @@ public class Controller {
             risultato.put("statistiche", statistiche);
             risultato.put("città", identificatoreCitta);
             return risultato;
-        }
-        else throw new InvalidStatsTypeException();
+        } else throw new InvalidStatsTypeException();
     }
 }

@@ -19,6 +19,7 @@ public class Data {
 
     /**
      * <b>Costruttore</b> della classe <code>data</code>. Si occupa anche di trasformare la data in formato "Epoch" in una <code>LocalDateTime</code> di Java e di formattare tale data in una <code>String</code>.
+     *
      * @param dataEpoch data nel formato "Epoch".
      */
     public Data(long dataEpoch) {
@@ -30,6 +31,7 @@ public class Data {
 
     /**
      * <b>Costruttore</b> della classe <code>Data</code> necessario per i test.
+     *
      * @param data Data in <code>LocalDateTime</code>.
      */
     public Data(LocalDateTime data) {
@@ -39,6 +41,7 @@ public class Data {
 
     /**
      * <b>Getter</b> dell'attributo <code>dataEpoch</code>.
+     *
      * @return long dataEpoch.
      */
     public long getDataEpoch() {
@@ -47,6 +50,7 @@ public class Data {
 
     /**
      * <b>Setter</b> dell'attributo <code>dataEpoch</code>.
+     *
      * @param dataEpoch data nel formato "Epoch".
      */
     public void setDataEpoch(long dataEpoch) {
@@ -55,11 +59,13 @@ public class Data {
 
     /**
      * <b>Getter</b> dell'attributo <code>data</code>.
+     *
      * @return <code>LocalDateTime</code> data.
      */
     public LocalDateTime getDate() {
         return date;
     }
+
     /**
      * <b>Setter</b> dell'attributo <code>data</code>.
      *
@@ -68,9 +74,13 @@ public class Data {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
     /**
      * <b>Getter</b> dell'attributo <code>dataFormattata</code>.
+     *
      * @return String dataFormattata.
      */
-    public String getDataFormattata() { return dataFormattata; }
+    public String getDataFormattata() {
+        return dataFormattata;
+    }
 }

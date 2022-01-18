@@ -13,28 +13,28 @@ public interface StatisticheInterface {
      *
      * @return <code>double</code> - Minimo di una serie di valori.
      */
-    double getMinimo ();
+    double getMinimo();
 
     /**
      * <b>Metodo</b> <i>astratto</i> che si occupera' di calcolare il massimo di una serie di valori.
      *
      * @return <code>double</code> - Massimo di una serie di valori.
      */
-    double getMassimo ();
+    double getMassimo();
 
     /**
      * <b>Metodo</b> <i>astratto</i> che si occupera' di calcolare la media aritmetica di una serie di valori.
      *
      * @return <code>double</code> - Media di una serie di valori.
      */
-    double getMedia ();
+    double getMedia();
 
     /**
      * <b>Metodo</b> <i>astratto</i> che si occupera' di calcolare la varianza di una serie di valori.
      *
      * @return <code>double</code> - Varianza di una serie di valori.
      */
-    double getVarianza ();
+    double getVarianza();
 
 
 }

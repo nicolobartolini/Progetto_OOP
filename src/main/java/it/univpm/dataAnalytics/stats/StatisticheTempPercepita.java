@@ -10,7 +10,7 @@ import java.util.Vector;
  * @author nicolobartolini
  * @author riccardopostacchini
  */
-public class StatisticheTempPercepita implements StatisticheInterface{
+public class StatisticheTempPercepita implements StatisticheInterface {
 
     private double[] arrayTempPercepita;
 
@@ -19,21 +19,21 @@ public class StatisticheTempPercepita implements StatisticheInterface{
      *
      * @param vTempPercepita Vettore contenente i valori delle temperature.
      */
-    public StatisticheTempPercepita (Vector<Temperatura> vTempPercepita){
+    public StatisticheTempPercepita(Vector<Temperatura> vTempPercepita) {
         arrayTempPercepita = new double[vTempPercepita.size()];
         for (int i = 0; i < vTempPercepita.size(); i++)
             arrayTempPercepita[i] = vTempPercepita.get(i).getValorePercepito();
     }
 
     @Override
-    public double getMinimo (){
+    public double getMinimo() {
         double minimo;
         try {
             minimo = arrayTempPercepita[0];
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        for (int i = 1; i < arrayTempPercepita.length; i++){
+        for (int i = 1; i < arrayTempPercepita.length; i++) {
             if (arrayTempPercepita[i] < minimo)
                 minimo = arrayTempPercepita[i];
         }
@@ -41,14 +41,14 @@ public class StatisticheTempPercepita implements StatisticheInterface{
     }
 
     @Override
-    public double getMassimo (){
+    public double getMassimo() {
         double massimo;
         try {
             massimo = arrayTempPercepita[0];
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        for (int i = 1; i < arrayTempPercepita.length; i++){
+        for (int i = 1; i < arrayTempPercepita.length; i++) {
             if (arrayTempPercepita[i] > massimo)
                 massimo = arrayTempPercepita[i];
         }
@@ -56,7 +56,7 @@ public class StatisticheTempPercepita implements StatisticheInterface{
     }
 
     @Override
-    public double getMedia (){
+    public double getMedia() {
         double somma = 0;
         try {
             for (double valore : arrayTempPercepita)
@@ -64,11 +64,11 @@ public class StatisticheTempPercepita implements StatisticheInterface{
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        return Math.round((somma/((double) arrayTempPercepita.length))* 100.0) / 100.0;
+        return Math.round((somma / ((double) arrayTempPercepita.length)) * 100.0) / 100.0;
     }
 
     @Override
-    public double getVarianza (){
+    public double getVarianza() {
         double scartoQuadratico = 0;
         try {
             for (double v : arrayTempPercepita)
@@ -76,6 +76,6 @@ public class StatisticheTempPercepita implements StatisticheInterface{
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0.0;
         }
-        return Math.round((scartoQuadratico/((double) arrayTempPercepita.length)) * 100.0) / 100.0;
+        return Math.round((scartoQuadratico / ((double) arrayTempPercepita.length)) * 100.0) / 100.0;
     }
 }

@@ -22,16 +22,19 @@ public class ChiamataService {
 
     /**
      * <b>Costruttore</b> della classe <code>ChiamataService</code>.
+     *
      * @param nomeCitta nome della citta' della quale si vogliono sapere le previsioni.
-     * @param nazione nome della nazione di cui fa parte la citta' che si vuole cercare.
+     * @param nazione   nome della nazione di cui fa parte la citta' che si vuole cercare.
      */
-    public ChiamataService (String nomeCitta, String nazione){
+    public ChiamataService(String nomeCitta, String nazione) {
         this.parserCitta = new ParserCitta(nomeCitta, nazione);
     }
+
     /**
      * Metodo che si occupa di elaborare i dati forniti dall'API, di effettuare il parsing e di trasferirli in un nuovo JSONObject.
+     *
      * @return <code>JSONObject</code> - Risultato della chiamata all'API.
-     * @throws IOException eccezione relativa all'input/output.
+     * @throws IOException    eccezione relativa all'input/output.
      * @throws ParseException eccezione relativa al parsing.
      */
     public JSONObject elaboraChiamata() throws IOException, ParseException {
@@ -45,7 +48,7 @@ public class ChiamataService {
         risultato.put("città", identificatoreCitta);
 
         JSONArray arrayPress = new JSONArray();
-        for (int i=0; i < this.citta.getPressioni().size(); i++){
+        for (int i = 0; i < this.citta.getPressioni().size(); i++) {
             JSONObject datoPressione = new JSONObject();
             datoPressione.put("dt", this.citta.getPressioni().get(i).getData().getDataEpoch());
             datoPressione.put("dtFormat", this.citta.getPressioni().get(i).getData().getDataFormattata());
@@ -57,7 +60,7 @@ public class ChiamataService {
         risultato.put("pressioni", arrayPress);
 
         JSONArray arrayTemp = new JSONArray();
-        for (int i=0; i < this.citta.getTemperatura().size(); i++){
+        for (int i = 0; i < this.citta.getTemperatura().size(); i++) {
             JSONObject datoTemperatura = new JSONObject();
             datoTemperatura.put("dt", this.citta.getTemperatura().get(i).getData().getDataEpoch());
             datoTemperatura.put("dtFormat", this.citta.getTemperatura().get(i).getData().getDataFormattata());

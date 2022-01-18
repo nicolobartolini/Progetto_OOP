@@ -16,51 +16,60 @@ import java.util.Vector;
  * @author nicolobartolini
  * @author riccardopostacchini
  */
-public class FiltriTempReale extends FiltriTemp implements FiltriInterface{
+public class FiltriTempReale extends FiltriTemp implements FiltriInterface {
 
     /**
      * <b>Costruttore</b> della classe. Richiama il costruttore della superclasse.
+     *
      * @param citta Citta' contenente i valori che saranno necessari ai vari filtri.
      */
     public FiltriTempReale(Citta citta) {
         super(citta);
     }
 
+    @Override
     public double getMinimoGiornaliero(LocalDateTime giorno) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getMinimo();
     }
 
+    @Override
     public double getMassimoGiornaliero(LocalDateTime giorno) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getMassimo();
     }
 
+    @Override
     public double getMediaGiornaliera(LocalDateTime giorno) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getMedia();
     }
 
+    @Override
     public double getVarianzaGiornaliera(LocalDateTime giorno) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheGiornaliere(giorno);
         return stat.getVarianza();
     }
 
+    @Override
     public double getMinimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getMinimo();
     }
 
+    @Override
     public double getMassimoFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getMassimo();
     }
 
+    @Override
     public double getMediaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getMedia();
     }
 
+    @Override
     public double getVarianzaFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException {
         StatisticheTempReale stat = getStatisticheFasciaOraria(oraIniziale, oraFinale);
         return stat.getVarianza();
@@ -68,15 +77,17 @@ public class FiltriTempReale extends FiltriTemp implements FiltriInterface{
 
     /**
      * <b>Metodo</b> che fornisce alla classe <code>StatisticheTempReale</code> un vettore di temperature filtrato, relativo solo a un giorno.
+     *
      * @param giorno Giorno richiesto.
      * @return <code>StatisticheTempReale</code> - Istanza della classe di statistica relativa alla temperatura reale con riferimento al vettore di temperature filtrato.
+     * @throws InvalidPeriodException Eccezione relativa a un errore nel periodo immesso.
      */
     private StatisticheTempReale getStatisticheGiornaliere(LocalDateTime giorno) throws InvalidPeriodException {
-        if(!isGiornoValido(giorno)){
+        if (!isGiornoValido(giorno)) {
             throw new InvalidPeriodException();
         }
         Vector<Temperatura> vTempReale = new Vector<>();
-        for(Temperatura t : citta.getTemperatura()){
+        for (Temperatura t : citta.getTemperatura()) {
             if (t.getData().getDate().getDayOfMonth() == giorno.getDayOfMonth())
                 vTempReale.add(t);
         }
@@ -85,9 +96,11 @@ public class FiltriTempReale extends FiltriTemp implements FiltriInterface{
 
     /**
      * <b>Metodo</b> che fornisce alla classe <code>StatisticheTempReale</code> un vettore di temperature filtrato, relativo solo a una fascia oraria.
+     *
      * @param oraIniziale Ora iniziale della fascia oraria richiesta.
-     * @param oraFinale Ora finale della fascia oraria richiesta.
+     * @param oraFinale   Ora finale della fascia oraria richiesta.
      * @return <code>StatisticheTempReale</code> - Istanza della classe di statistica relativa alla temperatura reale con riferimento al vettore di temperature filtrato.
+     * @throws InvalidPeriodException Eccezione relativa a un errore nel periodo immesso.
      */
     private StatisticheTempReale getStatisticheFasciaOraria(LocalDateTime oraIniziale, LocalDateTime oraFinale) throws InvalidPeriodException {
         if (!isFasciaOrariaValida(oraIniziale, oraFinale)) {
