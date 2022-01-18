@@ -6,6 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -14,11 +15,10 @@ import java.io.IOException;
  * @author riccardopostacchini
  * @author nicolobartolini
  */
-
 public class ChiamataService {
+
     private Citta citta;
     private ParserCitta parserCitta;
-    //TODO filtri e statistiche
 
     /**
      * <b>Costruttore</b> della classe <code>ChiamataService</code>.
@@ -28,7 +28,6 @@ public class ChiamataService {
     public ChiamataService (String nomeCitta, String nazione){
         this.parserCitta = new ParserCitta(nomeCitta, nazione);
     }
-
     /**
      * Metodo che si occupa di elaborare i dati forniti dall'API, di effettuare il parsing e di trasferirli in un nuovo JSONObject.
      * @return <code>JSONObject</code> - Risultato della chiamata all'API.
@@ -72,5 +71,4 @@ public class ChiamataService {
         risultato.put("temperature", arrayTemp);
         return risultato;
     }
-
 }

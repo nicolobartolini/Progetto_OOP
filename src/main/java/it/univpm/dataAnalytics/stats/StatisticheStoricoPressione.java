@@ -28,7 +28,12 @@ public class StatisticheStoricoPressione implements StatisticheInterface {
 
     @Override
     public double getMinimo() {
-        double minimo = pressioni[0];
+        double minimo;
+        try {
+            minimo = pressioni[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         for (int i = 1; i < pressioni.length; i++) {
             if (pressioni[i] < minimo)
                 minimo = pressioni[i];
@@ -38,7 +43,12 @@ public class StatisticheStoricoPressione implements StatisticheInterface {
 
     @Override
     public double getMassimo() {
-        double massimo = pressioni[0];
+        double massimo;
+        try {
+            massimo = pressioni[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         for (int i = 1; i < pressioni.length; i++) {
             if (pressioni[i] > massimo)
                 massimo = pressioni[i];
@@ -49,16 +59,24 @@ public class StatisticheStoricoPressione implements StatisticheInterface {
     @Override
     public double getMedia() {
         double somma = 0;
-        for (double valore : pressioni)
-            somma += valore;
+        try {
+            for (double valore : pressioni)
+                somma += valore;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         return somma / ((double) pressioni.length);
     }
 
     @Override
     public double getVarianza() {
         double scartoQuadratico = 0;
-        for (double v : pressioni)
-            scartoQuadratico += Math.pow((v - getMedia()), 2);
+        try {
+            for (double v : pressioni)
+                scartoQuadratico += Math.pow((v - getMedia()), 2);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         return scartoQuadratico / ((double) pressioni.length);
     }
 }

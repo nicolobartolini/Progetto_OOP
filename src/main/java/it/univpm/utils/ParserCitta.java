@@ -7,6 +7,7 @@ import it.univpm.models.Temperatura;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
 import java.util.Vector;
 
 /**
@@ -32,9 +33,13 @@ public class ParserCitta extends Parser{
      * @throws java.io.IOException Eccezione relativo all'input/output.
      * @throws ParseException Eccezione relativa al parsing.
      */
-    public Citta leggiDati() throws java.io.IOException, ParseException {
+    public Citta leggiDati() throws java.io.IOException, ParseException, FileNotFoundException {
 
         JSONObject rispostaAPI = getRispostaAPI();
+        String cod = (String) rispostaAPI.get("cod");
+        if (cod.equals("404")) {
+            throw new FileNotFoundException();
+        }
         JSONObject cittaAPI = (JSONObject) rispostaAPI.get("city");
         long id = (long) cittaAPI.get("id");
         String nome = (String) cittaAPI.get("name");

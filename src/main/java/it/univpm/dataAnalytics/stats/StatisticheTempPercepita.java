@@ -27,7 +27,12 @@ public class StatisticheTempPercepita implements StatisticheInterface{
 
     @Override
     public double getMinimo (){
-        double minimo = arrayTempPercepita[0];
+        double minimo;
+        try {
+            minimo = arrayTempPercepita[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         for (int i = 1; i < arrayTempPercepita.length; i++){
             if (arrayTempPercepita[i] < minimo)
                 minimo = arrayTempPercepita[i];
@@ -37,7 +42,12 @@ public class StatisticheTempPercepita implements StatisticheInterface{
 
     @Override
     public double getMassimo (){
-        double massimo = arrayTempPercepita[0];
+        double massimo;
+        try {
+            massimo = arrayTempPercepita[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         for (int i = 1; i < arrayTempPercepita.length; i++){
             if (arrayTempPercepita[i] > massimo)
                 massimo = arrayTempPercepita[i];
@@ -48,16 +58,24 @@ public class StatisticheTempPercepita implements StatisticheInterface{
     @Override
     public double getMedia (){
         double somma = 0;
-        for (double valore : arrayTempPercepita)
-            somma += valore;
-        return somma/((double) arrayTempPercepita.length);
+        try {
+            for (double valore : arrayTempPercepita)
+                somma += valore;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
+        return Math.round((somma/((double) arrayTempPercepita.length))* 100.0) / 100.0;
     }
 
     @Override
     public double getVarianza (){
         double scartoQuadratico = 0;
-        for (double v : arrayTempPercepita)
-            scartoQuadratico += Math.pow((v - getMedia()), 2);
-        return scartoQuadratico/((double) arrayTempPercepita.length);
+        try {
+            for (double v : arrayTempPercepita)
+                scartoQuadratico += Math.pow((v - getMedia()), 2);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
+        return Math.round((scartoQuadratico/((double) arrayTempPercepita.length)) * 100.0) / 100.0;
     }
 }

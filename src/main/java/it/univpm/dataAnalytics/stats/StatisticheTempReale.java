@@ -35,7 +35,12 @@ public class StatisticheTempReale implements StatisticheInterface{
 
     @Override
     public double getMinimo (){
-        double minimo = arrayTempReale[0];
+        double minimo;
+        try {
+            minimo = arrayTempReale[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         for (int i = 1; i < arrayTempReale.length; i++){
             if (arrayTempReale[i] < minimo)
                 minimo = arrayTempReale[i];
@@ -45,7 +50,12 @@ public class StatisticheTempReale implements StatisticheInterface{
 
     @Override
     public double getMassimo (){
-        double massimo = arrayTempReale[0];
+        double massimo;
+        try {
+            massimo = arrayTempReale[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         for (int i = 1; i < arrayTempReale.length; i++){
             if (arrayTempReale[i] > massimo)
                 massimo = arrayTempReale[i];
@@ -56,16 +66,24 @@ public class StatisticheTempReale implements StatisticheInterface{
     @Override
     public double getMedia (){
         double somma = 0;
-        for (double valore : arrayTempReale)
-            somma += valore;
+        try {
+            for (double valore : arrayTempReale)
+                somma += valore;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         return Math.round((somma/((double) arrayTempReale.length))* 100.0) / 100.0;
     }
 
     @Override
     public double getVarianza (){
         double scartoQuadratico = 0;
-        for (double v : arrayTempReale)
-            scartoQuadratico += Math.pow((v - getMedia()), 2);
+        try {
+            for (double v : arrayTempReale)
+                scartoQuadratico += Math.pow((v - getMedia()), 2);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return 0.0;
+        }
         return Math.round((scartoQuadratico/((double) arrayTempReale.length)) * 100.0) / 100.0;
     }
 }

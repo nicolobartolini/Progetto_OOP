@@ -6,10 +6,7 @@ import it.univpm.dataAnalytics.filters.FiltriTempReale;
 import it.univpm.dataAnalytics.stats.StatisticheStoricoPressione;
 import it.univpm.dataAnalytics.stats.StatisticheTempPercepita;
 import it.univpm.dataAnalytics.stats.StatisticheTempReale;
-import it.univpm.exceptions.InvalidFilterTypeException;
-import it.univpm.exceptions.InvalidPeriodException;
-import it.univpm.exceptions.InvalidStatsTypeException;
-import it.univpm.exceptions.InvalidTempTypeException;
+import it.univpm.exceptions.*;
 import it.univpm.models.Citta;
 import it.univpm.models.Temperatura;
 import it.univpm.services.ChiamataService;
@@ -22,6 +19,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -43,55 +42,63 @@ public class Controller {
      * @param nomeCitta <b>Nome</b> della citta'.
      * @param nazione <b>Nazione</b> della citta'.
      * @return <code>JSONObject</code> - JSONObject contenente le informazioni sulle pressioni, sulle temperature e sulla citta'.
-     * @throws IOException    the io exception
-     * @throws ParseException the parse exception
      */
     @GetMapping("/getGeneral")
     @ResponseBody
     public JSONObject getAllPressTemp(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
-                                      @RequestParam(name = "nation", defaultValue = "IT") String nazione) throws IOException, ParseException {
+                                      @RequestParam(name = "nation", defaultValue = "IT") String nazione) {
         ChiamataService service = new ChiamataService(nomeCitta, nazione);
-        return service.elaboraChiamata();
+        JSONObject risultato = new JSONObject();
+        try {
+            risultato = service.elaboraChiamata();
+        } catch (FileNotFoundException e){
+            risultato.put("errore", 404);
+            risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
+            risultato.put("errore_in", "/getGeneral");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return risultato;
     }
-
     /**
      * Rotta che, data una citta', restituisce tutte le previsioni relative alle pressioni per i prossimi 5 giorni.
      *
      * @param nomeCitta <b>Nome</b> della citta'.
      * @param nazione <b>Nazione</b> della citta'.
      * @return <code>JSONObject</code> - JSONObject contenente le previsioni sulle pressioni.
-     * @throws IOException Eccezione relativa all'input/output.
-     * @throws ParseException Eccezione relativa al parsing.
      */
     @GetMapping("/getPressioni")
     @ResponseBody
     public JSONObject getPressioni(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
-                                   @RequestParam(name = "nation", defaultValue = "IT") String nazione) throws IOException, ParseException {
-
+                                   @RequestParam(name = "nation", defaultValue = "IT") String nazione) {
         ChiamataService service = new ChiamataService(nomeCitta, nazione);
-        JSONObject risultato = service.elaboraChiamata();
-        risultato.remove("temperature");
+        JSONObject risultato = new JSONObject();
+        try {
+            risultato = service.elaboraChiamata();
+            risultato.remove("temperature");
+        } catch(FileNotFoundException e) {
+            risultato.put("errore", 404);
+            risultato.put("descrizione", "[" + nomeCitta + ", " + nazione + "] Città non trovata.");
+            risultato.put("errore_in", "/getPressioni");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
         return risultato;
-
     }
-
     /**
      * Rotta che esegue il metodo di accumulo dati sulla pressione e restituisce una stringa informativa sul percorso del file salvato.
      *
      * @param nomeCitta <b>Nome</b> della citta'.
      * @param nazione <b>Nazione</b> della citta'.
      * @return <code>String</code> - Stringa informativa sul percorso del file salvato.
-     * @throws IOException Eccezione relativa all'input/output.
-     * @throws ParseException Eccezione relativa al parsing.
      */
     @GetMapping("/stampaFileJSON")
     @ResponseBody
     public String stampaFileJSON(@RequestParam (name = "city", defaultValue = "Ancona") String nomeCitta,
-                                 @RequestParam(name = "nation", defaultValue = "IT") String nazione) throws IOException, ParseException {
+                                 @RequestParam(name = "nation", defaultValue = "IT") String nazione) {
         GestioneFile.aggiornaFileJSON(nomeCitta, nazione);
         return "Il file è stato salvato in: " + GestioneFile.creaPercorso(nomeCitta, nazione);
     }
-
     /**
      * Rotta che si occupa del filtraggio delle statistiche relative alla temperatura.
      *
@@ -116,19 +123,29 @@ public class Controller {
                                  @PathVariable Optional<Integer> end_hour, @PathVariable Optional<Integer> start_hour,
                                  @PathVariable String tipoFiltro, @PathVariable String tipoTemp) throws IOException, ParseException, InvalidTempTypeException, InvalidFilterTypeException, InvalidPeriodException {
         FiltriTemp filtri;
+
         int start_hour_value = 0;
         int end_hour_value = 0;
         if (start_hour.isPresent())
             start_hour_value = start_hour.get();
         if (end_hour.isPresent())
             end_hour_value = end_hour.get();
+
         if (tipoTemp.equalsIgnoreCase("reale")) {
             if (tipoFiltro.equalsIgnoreCase("giornaliero")) {
                 LocalDateTime giorno = LocalDateTime.of(year, month, day, 0, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
-                Citta citta = parser.leggiDati();
-                filtri = new FiltriTempReale(citta);
                 JSONObject risultato = new JSONObject();
+                Citta citta;
+                try {
+                    citta = parser.leggiDati();
+                } catch (FileNotFoundException e) {
+                    risultato.put("errore", 404);
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("errore_in", "filtriTemperature/reale/giornaliero");
+                    return risultato;
+                }
+                filtri = new FiltriTempReale(citta);
                 JSONObject identificatoreCitta = new JSONObject();
                 JSONObject valoriFiltrati = new JSONObject();
                 JSONObject periodo = new JSONObject();
@@ -151,9 +168,17 @@ public class Controller {
                 LocalDateTime oraIniziale = LocalDateTime.of(year, month, day, start_hour_value, 0, 0);
                 LocalDateTime oraFinale = LocalDateTime.of(year, month, day, end_hour_value, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
-                Citta citta = parser.leggiDati();
-                filtri = new FiltriTempReale(citta);
                 JSONObject risultato = new JSONObject();
+                Citta citta;
+                try {
+                    citta = parser.leggiDati();
+                } catch (FileNotFoundException e) {
+                    risultato.put("errore", 404);
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("errore_in", "filtriTemperature/reale/fasciaOraria");
+                    return risultato;
+                }
+                filtri = new FiltriTempReale(citta);
                 JSONObject periodo = new JSONObject();
                 JSONObject fasciaOraria = new JSONObject();
                 JSONObject valoriFiltrati = new JSONObject();
@@ -182,9 +207,17 @@ public class Controller {
             if (tipoFiltro.equalsIgnoreCase("giornaliero")) {
                 LocalDateTime giorno = LocalDateTime.of(year, month, day, 0, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
-                Citta citta = parser.leggiDati();
-                filtri = new FiltriTempPercepita(citta);
                 JSONObject risultato = new JSONObject();
+                Citta citta;
+                try {
+                    citta = parser.leggiDati();
+                } catch (FileNotFoundException e) {
+                    risultato.put("errore", 404);
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("errore_in", "filtriTemperature/percepita/giornaliero");
+                    return risultato;
+                }
+                filtri = new FiltriTempPercepita(citta);
                 JSONObject identificatoreCitta = new JSONObject();
                 JSONObject valoriFiltrati = new JSONObject();
                 JSONObject periodo = new JSONObject();
@@ -207,9 +240,17 @@ public class Controller {
                 LocalDateTime oraIniziale = LocalDateTime.of(year, month, day, start_hour_value, 0, 0);
                 LocalDateTime oraFinale = LocalDateTime.of(year, month, day, end_hour_value, 0, 0);
                 ParserCitta parser = new ParserCitta(nomeCitta, nazione);
-                Citta citta = parser.leggiDati();
-                filtri = new FiltriTempPercepita(citta);
                 JSONObject risultato = new JSONObject();
+                Citta citta;
+                try {
+                    citta = parser.leggiDati();
+                } catch (FileNotFoundException e) {
+                    risultato.put("errore", 404);
+                    risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                    risultato.put("errore_in", "filtriTemperature/percepita/fasciaOraria");
+                    return risultato;
+                }
+                filtri = new FiltriTempPercepita(citta);
                 JSONObject periodo = new JSONObject();
                 JSONObject fasciaOraria = new JSONObject();
                 JSONObject valoriFiltrati = new JSONObject();
@@ -236,7 +277,6 @@ public class Controller {
         }
         else throw new InvalidTempTypeException();
     }
-
     /**
      * Rotta che si occupa delle statistiche sull'intero intervallo di 5 giorni relative alla temperatura oppure allo storico delle pressioni.
      *
@@ -252,13 +292,20 @@ public class Controller {
     public JSONObject getStatistiche(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
                                      @RequestParam(name = "nation", defaultValue = "IT") String nazione,
                                      @PathVariable String tipoDato) throws IOException, ParseException, InvalidStatsTypeException {
-
         if (tipoDato.equalsIgnoreCase("pressione")) {
             JSONParser parser = new JSONParser();
-            Object o = parser.parse(new FileReader(GestioneFile.creaPercorso(nomeCitta, nazione)));
+            JSONObject risultato = new JSONObject();
+            Object o;
+            try {
+                o = parser.parse(new FileReader(GestioneFile.creaPercorso(nomeCitta, nazione)));
+            } catch (FileNotFoundException e) {
+                risultato.put("errore", 404);
+                risultato.put("descrizione", "[" + GestioneFile.creaPercorso(nomeCitta, nazione) +"] Il file non c'è.");
+                risultato.put("errore_in", "stats/pressione");
+                return risultato;
+            }
             JSONArray storico = (JSONArray) o;
             StatisticheStoricoPressione stat = new StatisticheStoricoPressione(storico);
-            JSONObject risultato = new JSONObject();
             JSONObject periodo = new JSONObject();
             JSONObject statistiche = new JSONObject();
             JSONObject identificatoreCitta = new JSONObject();
@@ -277,9 +324,18 @@ public class Controller {
         }
         else if (tipoDato.equalsIgnoreCase("temperaturaReale")) {
             ParserTemperatura parser = new ParserTemperatura(nomeCitta, nazione);
-            Vector<Temperatura> temperature = parser.leggiDati();
-            StatisticheTempReale stat = new StatisticheTempReale(temperature);
             JSONObject risultato = new JSONObject();
+            Vector<Temperatura> temperature;
+            StatisticheTempReale stat;
+            try {
+                temperature = parser.leggiDati();
+                stat = new StatisticheTempReale(temperature);
+            } catch (FileNotFoundException e) {
+                risultato.put("errore", 404);
+                risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                risultato.put("errore_in", "stats/temperaturaReale");
+                return risultato;
+            }
             JSONObject periodo = new JSONObject();
             JSONObject statistiche = new JSONObject();
             JSONObject identificatoreCitta = new JSONObject();
@@ -298,9 +354,18 @@ public class Controller {
         }
         else if (tipoDato.equalsIgnoreCase("temperaturaPercepita")) {
             ParserTemperatura parser = new ParserTemperatura(nomeCitta, nazione);
-            Vector<Temperatura> temperature = parser.leggiDati();
-            StatisticheTempPercepita stat = new StatisticheTempPercepita(temperature);
             JSONObject risultato = new JSONObject();
+            Vector<Temperatura> temperature;
+            StatisticheTempReale stat;
+            try {
+                temperature = parser.leggiDati();
+                stat = new StatisticheTempReale(temperature);
+            } catch (FileNotFoundException e) {
+                risultato.put("errore", 404);
+                risultato.put("descrizione", "[" + nomeCitta + ", " + nazione +"] Città non trovata.");
+                risultato.put("errore_in", "stats/temperaturaPercepita");
+                return risultato;
+            }
             JSONObject periodo = new JSONObject();
             JSONObject statistiche = new JSONObject();
             JSONObject identificatoreCitta = new JSONObject();
