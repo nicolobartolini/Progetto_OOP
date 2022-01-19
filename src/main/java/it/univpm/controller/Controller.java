@@ -4,7 +4,6 @@ import it.univpm.dataAnalytics.filters.FiltriTemp;
 import it.univpm.dataAnalytics.filters.FiltriTempPercepita;
 import it.univpm.dataAnalytics.filters.FiltriTempReale;
 import it.univpm.dataAnalytics.stats.StatisticheStoricoPressione;
-import it.univpm.dataAnalytics.stats.StatisticheTempPercepita;
 import it.univpm.dataAnalytics.stats.StatisticheTempReale;
 import it.univpm.exceptions.*;
 import it.univpm.models.Citta;
@@ -19,7 +18,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;

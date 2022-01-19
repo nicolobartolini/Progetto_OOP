@@ -39,9 +39,8 @@ public class GestioneFile {
      *
      * @param nomeCitta <b>Nome</b> della citta'.
      * @param nazione   <b>Nazione</b> della citta'.
-     * @return <code>File</code> di accumulo dati.
      */
-    private static File creaFile(String nomeCitta, String nazione) {
+    private static void creaFile(String nomeCitta, String nazione) {
 
         String percorso = creaPercorso(nomeCitta, nazione);
         File file = new File(percorso);
@@ -57,7 +56,6 @@ public class GestioneFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return file;
     }
 
     /**
@@ -68,7 +66,7 @@ public class GestioneFile {
      */
     public static void aggiornaFileJSON(String nomeCitta, String nazione) {
 
-        File file = creaFile(nomeCitta, nazione);
+        creaFile(nomeCitta, nazione);
         // Crea un timer
         Timer timer = new Timer();
         // Crea un'azione timerata
