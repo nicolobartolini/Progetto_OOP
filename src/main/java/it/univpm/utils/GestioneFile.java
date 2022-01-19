@@ -63,20 +63,8 @@ public class GestioneFile {
      *
      * @param nomeCitta <b>Nome</b> della citta'.
      * @param nazione   <b>Nazione</b> della citta'.
-     * @throws FileNotFoundException Eccezione relativa a un errore nella ricerca di un file.
      */
-    public static void aggiornaFileJSON(String nomeCitta, String nazione) throws FileNotFoundException {
-
-        try {
-            ChiamataService serviceTry = new ChiamataService(nomeCitta, nazione);
-            serviceTry.elaboraChiamata();
-        } catch (FileNotFoundException e) {
-            return;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public static void aggiornaFileJSON(String nomeCitta, String nazione) {
 
         creaFile(nomeCitta, nazione);
         // Crea un timer
