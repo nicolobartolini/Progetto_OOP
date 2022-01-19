@@ -96,7 +96,11 @@ public class Controller {
     @ResponseBody
     public String stampaFileJSON(@RequestParam(name = "city", defaultValue = "Ancona") String nomeCitta,
                                  @RequestParam(name = "nation", defaultValue = "IT") String nazione) {
-        GestioneFile.aggiornaFileJSON(nomeCitta, nazione);
+        try {
+            GestioneFile.aggiornaFileJSON(nomeCitta, nazione);
+        } catch (FileNotFoundException e) {
+            return "Il file non è stato creato dal momento che la città " + nomeCitta + ", " + nazione + " è inesistente";
+        }
         return "Il file è stato salvato in: " + GestioneFile.creaPercorso(nomeCitta, nazione);
     }
 

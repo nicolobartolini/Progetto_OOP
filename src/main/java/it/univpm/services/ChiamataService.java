@@ -34,10 +34,11 @@ public class ChiamataService {
      * Metodo che si occupa di elaborare i dati forniti dall'API, di effettuare il parsing e di trasferirli in un nuovo JSONObject.
      *
      * @return <code>JSONObject</code> - Risultato della chiamata all'API.
-     * @throws IOException    eccezione relativa all'input/output.
-     * @throws ParseException eccezione relativa al parsing.
+     * @throws IOException           eccezione relativa all'input/output.
+     * @throws ParseException        eccezione relativa al parsing.
+     * @throws FileNotFoundException eccezione relativa a un errore nella ricerca di un file.
      */
-    public JSONObject elaboraChiamata() throws IOException, ParseException {
+    public JSONObject elaboraChiamata() throws IOException, ParseException, FileNotFoundException {
         this.citta = this.parserCitta.leggiDati();
 
         JSONObject risultato = new JSONObject();
