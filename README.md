@@ -11,13 +11,13 @@ riguardanti temperature reali, percepite e pressioni dato un periodo di tempo ri
 - [Introduzione](#Introduzione)
 - [Installazione](#Installazione)
 - [Rotte](#Rotte)
-- [Rotta getGeneral](#getGeneral)
-- [Rotta getPressioni](#getPressioni)
-- [Rotta stampaFileJSON](#stampaFileJSON)
-- [Rotta filtriTemperature](#filtriTemperature)
-- [Rotta stats](#stats)
+    - [Rotta /getGeneral](#getGeneral)
+    - [Rotta /getPressioni](#getPressioni)
+    - [Rotta /stampaFileJSON](#stampaFileJSON)
+    - [Rotta /filtriTemperature](#filtriTemperature)
+    - [Rotta /stats](#stats)
 - [Exceptions](#exceptions)
-- [TestJunit](#test)
+- [Test JUnit](#test)
 - [Documentazione](#documentazione)
 - [Autori](#autori)
 
@@ -394,7 +394,7 @@ Il JSONObject restituito dall'applicazione dopo una chiamata di questo tipo sar√
 <a name="exceptions"></a>
 ### Exceptions
 
-|Exceptions|Descirzione|
+|Exception|Descrizione|
 |:-| :--- | 
 |InvalidFilterTypeException | Eccezione relativa all'immissione di un tipo di filtraggio non esistente.  |
 |InvalidPeriodException| Eccezione relativa all'immissione di un periodo non valido. |
@@ -406,7 +406,7 @@ Il JSONObject restituito dall'applicazione dopo una chiamata di questo tipo sar√
 <a name="test"></a>
 ### Test JUnit
 
-Per verificare il corretto funzionamento di alcuni metodi e funzionalit√† abbiamo implementato [3 test unitari JUNit](https://github.com/nicolobartolini/Progetto_OOP/tree/master/src/test/java/it/univpm)
+Per verificare il corretto funzionamento di alcuni metodi e funzionalit√† abbiamo implementato [3 test unitari JUnit](https://github.com/nicolobartolini/Progetto_OOP/tree/master/src/test/java/it/univpm)
 
 <a name="documentazione"></a>
 ### Documentazione
